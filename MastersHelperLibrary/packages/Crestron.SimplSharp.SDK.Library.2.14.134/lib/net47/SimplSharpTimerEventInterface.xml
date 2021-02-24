@@ -1,0 +1,2746 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SimplSharpTimerEventInterface</name>
+    </assembly>
+    <members>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon">
+            <summary>
+            Scheduled event common definitions and methods class
+            </summary>
+            <summary>
+            Scheduled event common definitions and methods class
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.MaxAstronomicalHourOffset">
+            <summary>
+            maximum astronomical event +/- hour offset 
+            </summary>            
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.MaxAstronomicalMinuteOffset">
+            <summary>
+            maximum astronomical event +/- minute offset 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.Latitude_Default">
+            <summary>
+            Default Latitude is "41.0000 North" for Rockleigh, NJ 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.Longitude_Default">
+            <summary>
+            Default Longitude is "-73.933333 West" for Rockleigh, NJ  
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.userfriendlyname">
+            <summary>
+            friendly name is used to identify events belonging to this program
+            Be sure this name is set before creating any events if you wish to use it
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.SystemDayOfWeekToWeekDays">
+            <summary>
+            A convenience dictionary provided to map from System.DayOfWeek to SchedulerCommon.eWeekDays
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.WeekDaysToSystemDayOfWeek">
+            <summary>
+            A convenience dictionary provided to map from SchedulerCommon.eWeekDays to System.DayOfWeek
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.ComLatitude">
+            <summary>
+            Latitude North or South, enter positive value for north and negative value for south
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.ComLongitude">
+            <summary>
+            Longitude East or West, enter positive value for east and negative value for west 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.MaxSnoozeTime">
+            <summary>
+            Maximum allowable snooze time
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.SetFriendlyName(System.String)">
+            <summary>
+            This method sends user friendly name to the timer engine  
+            </summary>
+            <param name="newName"> User friendly name to set </param>
+            <returns> Success is returned if friendlyname is set otherwise, error code is returned </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> The user friendly name is null or has invalid length </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.DisplayCallBackList">
+            <summary>
+            show list of callbacks  
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.DisplayPacketPendingList">
+            <summary>
+            Display pending packet list
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.DisplayEventGroupList">
+            <summary>
+            Display event group list
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.IsHashKeyValid(System.UInt32)">
+            <summary>
+            Checks whether the hash key is valid
+            </summary>
+            <param name="HashKey"></param>
+            <returns> returns true if the hash key is valid </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.TryGetEventGroup(System.String,Crestron.SimplSharp.Scheduler.ScheduledEventGroup@)">
+            <summary>
+            This method checks whether the event group exist in the group list, if the event group is in the group list
+            a reference to the group is returned to the caller.
+            </summary>
+            <param name="GroupName"> Group name to search for in the group list </param>
+            <param name="EventGroup"> Event group object returned to caller </param>
+            <returns> Returns true if event group object was found </returns>
+            <exception cref="T:System.ArgumentNullException"> GroupName is null</exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.RetrieveEventGroupNames(System.String[]@)">
+            <summary>
+            Retrieve event group name(s) 
+            </summary>
+            <param name="EventGroupNames"> where EventGroup names are returned </param>
+            <returns> Success is returned if event group(s) names are retrieved for event group otherwise, error code is returned </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.RetrieveNextEventGroupName(System.String@,System.Int32@,System.Int32@)">
+            <summary>
+            Retrieve event group name(s) from timer engine  
+            </summary>
+            <param name="EventGroupName"> where event group name is returned </param>
+            <param name="totalentries"> where total number of event group name count is returned </param>
+            <param name="entryindex"> where event group name input index and output index is returned </param>
+            <returns> result code, on successful operation returns SUCCESS otherwise error codes are returned </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.ReadConfigurationSettings">
+            <summary>
+            Read configuration settings from registry
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.ProgramStopPauseResumeEvent(Crestron.SimplSharp.Scheduler.ScheduledEventInternals.eMessageTypes)">
+            <summary>
+             This method sends the program stopped, pause and resume requests to the timer engine. 
+            </summary>
+            <param name="eventtype"> event type stop, pause, resume etc... </param>
+            <returns> returns Success if program is paused, resumed or stopped </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.ProgramStopped">
+            <summary>
+            This method is called when the user program is stopped. All events are stopped. 
+            </summary>
+            <returns> Returns Success if program was stopped otherwise, returns error code </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.ProgramPaused">
+            <summary>
+            This method is called when the user program is paused. All events are paused.
+            </summary>
+            <returns> Returns Success if program was stopped, paused, resumed otherwise, returns error code </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.ProgramResumed">
+            <summary>
+            This method is called when the user program is resumed. All program events are started and will make callback on timer expiration with the 
+            following exceptions.               
+            All events that have expired and do not have recurrence are cleared and will not callback the user application.
+            All events that are acknowledgeable and have expired and are within the acknowledge expiration window will callback user application 
+            immediately. All relative events will resume where they left off when the pause cmd was issued.
+            </summary>
+            <returns> Returns Success if program was resumed otherwise, returns error code </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.isAstronomicalEventValid(Crestron.SimplSharp.Scheduler.ScheduledEvent)">
+            <summary>
+            Checks if an Astronomical event's DateTime parameters are valid.
+            </summary>
+            <param name="AstronomicalEvent">The DateTime of the event to check</param>
+            <returns>returns 'true' if event parameters are valid</returns>
+            <remarks>This method requires firmware version 1.0012.0007 or later</remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.CalculateAstronomicalTime(Crestron.SimplSharp.Scheduler.ScheduledEvent,System.UInt16@,System.UInt16@)">
+            <summary>
+            Calculates the trigger time for an Astronomical event
+            </summary>
+            <param name="AstronomicalEvent">The astronomical event</param>
+            <param name="triggerHour">This is the hour of the day the event will trigger</param>
+            <param name="triggerMinute">This is the minute of the hour the event will trigger</param>
+            <returns>returns code 'Success' if successful</returns>
+            <remarks>This method requires firmware version 1.0012.0007 or later</remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.Initialize">
+            <summary>
+            dummy method to force constructor call
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.#cctor">
+            <summary>  
+            constructor  
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.UserFriendlyName">
+            <summary>
+            Set or Get user friendly name. User friendly name is used to identify events belonging to this program.
+            This property needs to be explicitly set by the user before creating any events and has to be unique for the whole system.
+            This will be used to uniquely identify events for a particular program.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if user friendly name has invalid length </exception>           
+            <exception cref="T:System.ArgumentException"> This exception is thrown if user friendly name is used by other application </exception>   
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrence">
+            <summary>
+             Recurrent event types, used for recurrent events
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrence.NotSet">
+            <summary>
+            recurrence is not set
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrence.EveryNthDay">
+            <summary>
+            Every nth day e.g. 5, 15 day 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrence.EveryNthWeek">
+            <summary>
+            Every nth week, e.g. 2, 3, 10 week
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrence.EveryNthMonth">
+            <summary>
+            Every nth month, e.g. 2, 3, 9 month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrence.EveryNthYear">
+            <summary>
+            Every nth year, e.g. 2, 3, 9 year 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrence.Daily">
+            <summary>
+            Every day
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrence.Weekly">
+            <summary>
+            Every week
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrence.Monthly">
+            <summary>
+            Every month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrence.Yearly">
+            <summary>
+            Every year
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays">
+            <summary>
+            Week days used for recurrent weekly or nth-week events 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.NotSet">
+            <summary>
+            weekday recurrence is not set 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.Sunday">
+            <summary>
+            Seventh day of the week 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.Monday">
+            <summary>
+            First day of the week
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.Tuesday">
+            <summary>
+            Second day of the week
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.Wednesday">
+            <summary>
+            Third day of the week
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.Thursday">
+            <summary>
+            Fourth day of the week
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.Friday">
+            <summary>
+            Fifth day of the week
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.Saturday">
+            <summary>
+            Sixth day of the week
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.Workdays">
+            <summary>
+            Standard days of the work week
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.Weekends">
+            <summary>
+            Standard weekend days
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays.All">
+            <summary>
+            Every day of the week
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eFirstDayOfWeek">
+            <summary>
+            First day of the week used for recurrent events. Default is Sunday.
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eFirstDayOfWeek.Sunday">
+            <summary>
+            first day of the week is Sunday (Default) 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eFirstDayOfWeek.Monday">
+            <summary>
+            first day of the week is Monday 
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate">
+            <summary>
+            Month days used recurrent monthly or n-month events   
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.RecurrenceMonthNotSet">
+            <summary>
+            Recurrence monthly date is not set
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.FirstOfTheMonth">
+            <summary>
+            First of the month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.SecondOfTheMonth">
+            <summary>
+            Second of the month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.ThirdOfTheMonth">
+            <summary>
+            Third of the month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.FourthOfTheMonth">
+            <summary>
+            Fourth of the month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.FifthOfTheMonth">
+            <summary>
+            Fifth of the month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.SixthOfTheMonth">
+            <summary>
+            Sixth of the month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.SeventhOfTheMonth">
+            <summary>
+            Seventh of the month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.EighthOfTheMonth">
+            <summary>
+            Eighth Of The Month 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.NinthOfTheMonth">
+            <summary>
+            Ninth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TenthOfTheMonth">
+            <summary>
+            Tenth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.EleventhOfTheMonth">
+            <summary>
+            Eleventh Of The Month  
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwelfthOfTheMonth">
+            <summary>
+            Twelfth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.ThirteenthOfTheMonth">
+            <summary>
+            Thirteenth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.FourteenthOfTheMonth">
+            <summary>
+            Fourteenth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.FifteenthOfTheMonth">
+            <summary>
+            Fifteenth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.SixteenthOfTheMonth">
+            <summary>
+            Sixteenth Of The Month 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.SeventeenthOfTheMonth">
+            <summary>
+            Seventeenth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.EighteenthOfTheMonth">
+            <summary>
+            Eighteenth Of The Month 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.NineteenthOfTheMonth">
+            <summary>
+            Nineteenth Of The Month 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwentiethOfTheMonth">
+            <summary>
+            Twentieth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwentyFirstOfTheMonth">
+            <summary>
+            TwentyFirst Of The Month 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwentySecondOfTheMonth">
+            <summary>
+            TwentySecond Of The Month 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwentyThirdOfTheMonth">
+            <summary>
+            TwentyThird Of The Month 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwentyFourthOfTheMonth">
+            <summary>
+            TwentyFourth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwentyFifthOfTheMonth">
+            <summary>
+            TwentyFifth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwentySixthOfTheMonth">
+            <summary>
+            TwentySixth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwentySeventhOfTheMonth">
+            <summary>
+            TwentySeventh Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwentyEighthOfTheMonth">
+            <summary>
+            TwentyEighth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.TwentyNinthOfTheMonth">
+            <summary>
+            TwentyNinth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.ThirtiethOfTheMonth">
+            <summary>
+            Thirtieth Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate.ThirtyFirstOfTheMonth">
+            <summary>
+            ThirtyFirst Of The Month
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth">
+            <summary>
+            Relative days of the month for recurrent events 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FirstSundayOfTheMonth">
+            <summary>
+            First Sunday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FirstMondayOfTheMonth">
+            <summary>
+            First Monday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FirstTuesdayOfTheMonth">
+            <summary>
+            First Tuesday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FirstWednesdayOfTheMonth">
+            <summary>
+            First Wednesday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FirstThursdayOfTheMonth">
+            <summary>
+            First Thursday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FirstFridayOfTheMonth">
+            <summary>
+            First Friday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FirstSaturdayOfTheMonth">
+            <summary>
+            First Saturday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.SecondSundayOfTheMonth">
+            <summary>
+            Second Sunday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.SecondMondayOfTheMonth">
+            <summary>
+            Second Monday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.SecondTuesdayOfTheMonth">
+            <summary>
+            Second Tuesday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.SecondWednesdayOfTheMonth">
+            <summary>
+            Second Wednesday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.SecondThursdayOfTheMonth">
+            <summary>
+            Second Thursday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.SecondFridayOfTheMonth">
+            <summary>
+            Second Friday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.SecondSaturdayOfTheMonth">
+            <summary>
+            Second Saturday Of TheMonth
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.ThirdSundayOfTheMonth">
+            <summary>
+            Third Sunday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.ThirdMondayOfTheMonth">
+            <summary>
+            Third Monday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.ThirdTuesdayOfTheMonth">
+            <summary>
+            Third Tuesday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.ThirdWednesdayOfTheMonth">
+            <summary>
+            Third Wednesday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.ThirdThursdayOfTheMonth">
+            <summary>
+            Third Thursday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.ThirdFridayOfTheMonth">
+            <summary>
+            Third Friday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.ThirdSaturdayOfTheMonth">
+            <summary>
+            Third Saturday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FourthSundayOfTheMonth">
+            <summary>
+            Fourth Sunday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FourthMondayOfTheMonth">
+            <summary>
+            Fourth Monday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FourthTuesdayOfTheMonth">
+            <summary>
+            Fourth Tuesday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FourthWednesdayOfTheMonth">
+            <summary>
+            Fourth Wednesday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FourthThursdayOfTheMonth">
+            <summary>
+            Fourth Thursday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FourthFridayOfTheMonth">
+            <summary>
+            Fourth Friday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.FourthSaturdayOfTheMonth">
+            <summary>
+            Fourth Saturday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.LastSundayOfTheMonth">
+            <summary>
+            Last Sunday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.LastMondayOfTheMonth">
+            <summary>
+            Last Monday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.LastTuesdayOfTheMonth">
+            <summary>
+            Last Tuesday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.LastWednesdayOfTheMonth">
+            <summary>
+            Last Wednesday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.LastThursdayOfTheMonth">
+            <summary>
+            Last Thursday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.LastFridayOfTheMonth">
+            <summary>
+            Last Friday Of The Month
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth.LastSaturdayOfTheMonth">
+            <summary>
+            Last Saturday Of The Month
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceMaxLimits">
+            <summary>
+            Maximum limits for recurrent events 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceMaxLimits.MaxRecurrenceNthDay">
+            <summary>
+            maximum allowed recurrence nth_day 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceMaxLimits.MaxRecurrenceNthWeek">
+            <summary>
+            maximum allowed recurrence nth_week 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceMaxLimits.MaxRecurrenceNthMonth">
+            <summary>
+            maximum allowed recurrence nth_month 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceMaxLimits.MaxRecurrenceNthYear">
+            <summary>
+            maximum allowed recurrence nth_year 
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eEventState">
+            <summary>
+            Current event state  
+            </summary>            
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eEventState.Enabled">
+            <summary>
+            Event is currently enabled 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eEventState.Disabled">
+            <summary>
+            Event is currently disabled 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eEventState.Paused">
+            <summary>
+            Event is currently paused 
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eEventType">
+            <summary>
+            Event types absolute, relative or astronomical  
+            </summary>            
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eEventType.EventNotSet">
+            <summary>
+            undefined event type 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eEventType.RelativeEvent">
+            <summary>
+            Relative event type  
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eEventType.AbsoluteEvent">
+            <summary>
+            Absolute event type    
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eEventType.AstronomicalEvent">
+            <summary>
+            Astronomical event type
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAmPm">
+            <summary>
+            AM/PM time selection used for setting absolute time events
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAmPm.AM">
+            <summary>
+            AM time selector
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAmPm.PM">
+            <summary>
+            PM time selector
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent">
+            <summary>
+            Astronomical event types
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent.NotSet">
+            <summary>
+            event not defined    
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent.CivilDusk">
+            <summary>
+            The time at which the sun is 6 degrees below the horizon in the evening. At this time objects are distinguishable 
+            and some stars and planets are visible to the naked eye            
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent.NauticalDusk">
+            <summary>
+            Is when the sun is 12 degrees below the horizon in the evening. At this time, objects are no longer distinguishable, 
+            and the horizon is no longer visible to the naked eye
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent.AstronomicalDusk">
+            <summary>
+            The time at which the sun is 18 degrees below the horizon in the evening. At this time the sun no longer illuminates 
+            the sky, and thus no longer interferes with astronomical observations
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent.AstronomicalDawn">
+            <summary>
+            Astronomical dawn is defined as the moment after which the sky is no longer completely dark. 
+            This occurs when the Sun is 18 degrees below the horizon in the morning.
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent.NauticalDawn">
+            <summary>
+            Nautical dawn is the time at which there is enough sunlight for the horizon and some objects to be distinguishable; 
+            formally, when the Sun is 12 degrees below the horizon in the morning
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent.CivilDawn">
+            <summary>
+            Civil dawn is the time at which there is enough light for objects to be distinguishable, so that 
+            outdoor activities can commence; formally, when the Sun is 6 degrees below the horizon in the morning.
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent.Sunrise">
+            <summary>
+            The rise or ascent of the sun above the horizon in the morning. 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent.Sunset">
+            <summary>
+            The setting or descent of the sun below the horizon in the evening. 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent.SolarNoon">
+            <summary>
+            Solar noon is the time at which the sun reaches the highest point in it's daily trajectory.  This requires firmware version 1.0012.0007 or later
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay">
+            <summary>
+            Relative days from current day used for relative time events
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay.NotSet">
+            <summary>    
+            Relative day is not set
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay.UpcomingMonday">
+            <summary>
+            Corresponds to upcoming Monday from current day
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay.UpcomingTuesday">
+            <summary>
+            Corresponds to upcoming Tuesday from current day
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay.UpcomingWednesday">
+            <summary>
+            Corresponds to upcoming Wednesday from current day
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay.UpcomingThursday">
+            <summary>
+            Corresponds to upcoming Thursday from current day
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay.UpcomingFriday">
+            <summary>
+            Corresponds to upcoming Friday from current day
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay.UpcomingSaturday">
+            <summary>
+            Corresponds to upcoming Saturday from current day
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay.UpcomingSunday">
+            <summary>
+            Corresponds to upcoming Sunday from current day
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay.Tomorrow">
+            <summary>
+            Corresponds to upcoming day 
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes">
+            <summary>
+            Event methods result codes 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.AlreadyDefined">
+            <summary>
+            Another event exist with same event and group name 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.Pending">
+            <summary>
+            Operation is waiting for reply
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.Success">
+            <summary>
+            Operation was successful
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.GeneralError">
+            <summary>
+            A generic error occurred, event failed
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.NotRegistered">
+            <summary>
+            Event or event group is not registered
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.NotFound">
+            <summary>
+            Event or Event Group not found
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.NotPaused">
+            <summary>
+            Event or event group is not paused 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.MemoryAllocError">
+            <summary>
+            Memory allocation error occurred 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.NotActive">
+            <summary>
+            Event is not active or running
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.GroupNameTooLong">
+            <summary>
+            Group name is too long 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.EventNameTooLong">
+            <summary>
+            Event name is too long
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.InvalidDateTimeSettings">
+            <summary>
+            Event time setting year, month, day, hour or minute is invalid or may earlier than current time
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.ReplyTimedOut">
+            <summary>
+            Event reply timeout occurred
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.ReplyDoesNotMatch">
+            <summary>
+            Event request and reply does not match
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.InvalidLength">
+            <summary>
+            Message has invalid length 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.InvalidPointer">
+            <summary>
+            Invalid pointer found
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.SaveToFileFailed">
+            <summary>
+            Saving data to file failed
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.ReplyMsgNotSent">
+            <summary>
+            Message reply could not be sent 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.InvalidMsg">
+            <summary>
+            Message type is invalid or not handled
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.InvalidIndex">
+            <summary>
+            Invalid index detected 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.InvalidType">
+            <summary>
+            Invalid or unexpected parameter type
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.NotUpdated">
+            <summary>
+            Parameter or setting could not be updated due to an error
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.InvalidValue">
+            <summary>
+            Invalid value is passed
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.Expired">
+            <summary>
+            Event or event group is expired
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.NotSupported">
+            <summary>
+            Event or operation is not supported
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.FileDelFailed">
+            <summary>
+            Could not delete file 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.InvalidAppNum">
+            <summary>
+            Invalid application number 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.SendQueueUnDef">
+            <summary>
+            Message queue not defined, message send failed 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.NullMsg">
+            <summary>
+            Null message passed 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.SendFailed">
+            <summary>
+            Message could not be sent 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.InitError">
+            <summary>
+            Initialization error occurred 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.TimerEngineNotRunning">
+            <summary>
+            Timer engine is not running
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.MsgPostFailed">
+            <summary>
+            Message could not be sent
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.TimerNotTriggered">
+            <summary>
+            Timer could not be triggered
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.AllZeros">
+            <summary>
+            parameters or parameter value(s) are zero
+            </summary>                
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.DoesNotHaveCallBack">
+            <summary>
+            Callback is not defined for event or event group
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.ProgramIDTagNotFound">
+            <summary>
+            Event Program ID Tag Not Found
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eResultCodes.ProgramIDTagInvalidLength">
+            <summary>
+            Program id tag length is invalid
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAsyncTrigType">
+            <summary>
+            Asyncronous event trigger types 
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eCallbackReason">
+            <summary>
+            Indicates reason for event callback 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eCallbackReason.NormalExpiration">
+            <summary>
+            Event expired at the scheduled time
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eCallbackReason.SnoozeExpiration">
+            <summary>
+            Event retriggered after the snooze period
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eCallbackReason.ManualTrigger">
+            <summary>
+            Event triggered due to console command.
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence">
+            <summary>
+            Recurrent event configuration settings 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Event">
+            <summary>
+            Reference to scheduled event object
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.#ctor(Crestron.SimplSharp.Scheduler.ScheduledEvent)">
+            <summary>
+            Recurrence class constructor
+            </summary>
+            <param name="ParentEvent"> reference to parent event object </param>          
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Daily">
+            <summary>
+            Set event to reoccur every day  
+            </summary>
+            <returns> Returns eResultCodes.Success if successful </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Daily(System.UInt32)">
+            <summary>
+            Set event to reoccur every nth-day
+            </summary>
+            <param name="MaxNumberOfRecurrence"> maximum number of recurrences </param>
+            <returns> Returns eResultCodes.Success if successful  </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthDay(System.UInt16)">
+            <summary>
+            Set event to reoccur every nth-day for specified maximum number of counts
+            </summary>
+            <param name="nth_day"> on nth days, e.g 5, 10, 15 days </param>
+            <returns> Returns eResultCodes.Success if successful  </returns>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if recurrence settings are not allowed to be changed </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if the recurrence parameters are out of range </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthDay(System.UInt16,System.UInt32)">
+            <summary>
+            Set event to reoccur every nth-day for specified maximum number of counts
+            </summary>
+            <param name="nth_day"> on nth days, e.g 5, 10, 15 days </param>
+            <param name="MaxNumberOfRecurrence"> maximum number of recurrences </param>
+            <returns> Returns eResultCodes.Success if successful  </returns>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if recurrence settings are not allowed to be changed </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if the recurrence parameters are out of range </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Daily(System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Set event to reoccur every day up to given expiration date
+            </summary>
+            <param name="Recurrence_ExpYear"> recurrence expiration year </param>
+            <param name="Recurrence_ExpMonth"> recurrence expiration month </param>
+            <param name="Recurrence_ExpDay"> recurrence expiration day </param>
+            <param name="Recurrence_ExpHour"> recurrence expiration hour </param>
+            <param name="Recurrence_ExpMinute"> recurrence expiration minute </param>
+            <returns> Returns eResultCodes.Success if successful </returns>      
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthDay(System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Set event to reoccur every nth-day up to given expiration date
+            </summary>
+            <param name="nth_day"> e.g. 5, 10, 15 days </param>
+            <param name="Recurrence_ExpYear"> recurrence expiration year 2014-xxxx </param>
+            <param name="Recurrence_ExpMonth"> recurrence expiration month 1..12 </param>
+            <param name="Recurrence_ExpDay"> recurrence expiration day 1..31 </param>
+            <param name="Recurrence_ExpHour"> recurrence expiration hour 0..23 </param> 
+            <param name="Recurrence_ExpMinute"> recurrence expiration minute 0..59  </param> 
+            <returns> Returns eResultCodes.Success if successful </returns>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if recurrence settings are not allowed to be changed </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if the recurrence parameters are out of range </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Weekly(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays)">
+            <summary>
+            Set event to reoccur every week on given weekdays 
+            </summary>
+            <param name="WeekDays"> WeekDays e.g. MONDAY and or TUESDAY and or THURSDAY etc </param>
+            <returns> Returns eResultCodes.Success if successful  </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Weekdays">
+            <summary>
+            Set event to occur every week on weekdays only (MONDAY - FRIDAY)
+            </summary>
+            <returns> Returns eResultCodes.Success if successful  </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.WeekEnds">
+            <summary>
+            Set event to occur every week on weekends only (SATURDAY - SUNDAY)
+            </summary>
+            <returns> Returns eResultCodes.Success if successful  </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthWeek(System.UInt16,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays)">
+            <summary>
+            Set event to reoccur every nth-week at given weekdays 
+            </summary>
+            <param name="nth_week"> nth week, e.g. 1 or 2 or 5 weeks </param>
+            <param name="WeekDays"> WeekDays e.g. MONDAY and or TUESDAY and or THURSDAY etc </param>
+            <returns> Returns eResultCodes.Success if successful  </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Weekly(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays,System.UInt32)">
+            <summary>
+            Set event to reoccur every week at given weekdays for specified maximum number of counts
+            </summary>
+            <param name="weekdays"> weekdays e.g. MONDAY and or TUESDAY and or THURSDAY etc </param>
+            <param name="MaxNumberOfRecurrence"> maximum number of recurrences </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthWeek(System.UInt16,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays,System.UInt32)">
+            <summary>
+            Set event to reoccur every nth-week at given weekdays for specified maximum number of counts
+            </summary>
+            <param name="nth_week"> e.g. 1 or 2 or 5 weeks </param>
+            <param name="weekdays"> weekdays e.g. MONDAY and/or TUESDAY and/or THURSDAY etc </param>
+            <param name="MaxNumberOfRecurrence"> maximum number of recurrences </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if recurrence settings are not allowed to be changed </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if the recurrence parameters are out of range </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Weekly(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Set event to reoccur every nth-week at given weekdays until the given expiration date
+            </summary>
+            <param name="weekdays"> weekdays e.g. MONDAY and or TUESDAY and or THURSDAY etc </param>
+            <param name="ExpYear"> recurrence expiration year </param>
+            <param name="ExpMonth"> recurrence expiration month </param>
+            <param name="ExpDay"> recurrence expiration day </param>
+            <param name="ExpHour"> recurrence expiration hour </param>
+            <param name="ExpMinute"> recurrence expiration minute </param>
+            <returns> 
+            Returns eResultCodes.Success if successful. 
+            </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthWeek(System.UInt16,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Set event to reoccur every nth-week at given weekdays until the given expiration date
+            </summary>
+            <param name="nth_week"> nth week, e.g. 1 or 2 or 5 weeks </param>
+            <param name="weekdays"> weekdays e.g. MONDAY and or TUESDAY and or THURSDAY etc </param>
+            <param name="ExpYear"> recurrence expiration year 2014-2xxx </param>
+            <param name="ExpMonth"> recurrence expiration month 1..12 </param>
+            <param name="ExpDay"> recurrence expiration day 1..31 </param>
+            <param name="ExpHour"> recurrence expiration hour 0..23 </param>
+            <param name="ExpMinute"> recurrence expiration minute 0..59 </param>
+            <returns> Returns eResultCodes.Success if successful. </returns>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if recurrence settings are not allowed to be changed </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if the recurrence parameters are out of range </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Monthly(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate)">
+            <summary>
+             Set event to reoccur every month at given dates 
+            </summary>
+            <param name="month_date"> month date e.g. on the first, third, fifth of the month </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthMonth(System.UInt16,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate)">
+            <summary>
+             Set event to reoccur every nth-month at given dates 
+            </summary>
+            <param name="nth_month"> nth month, e.g. every 1 or 2 or 5 months </param>
+            <param name="month_date"> month date, e.g. on the first, third, fifth of the month </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.VerifyValidDatesInSeries(System.Int32,System.Int32,System.UInt16,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate,System.UInt32,System.Int32,System.Int32)">
+            <summary>
+            Check that dates in the recurrence series are valid and do not exceed the maximum days of each month. Specifically 29, 30, and 31 of the month.
+            </summary>
+            <param name="year"></param>
+            <param name="month"></param>
+            <param name="nth_month"></param>
+            <param name="month_date"></param>
+            <param name="numRecurrence"></param>
+            <param name="end_year"></param>
+            <param name="end_month"></param>
+            <returns> return Success if all dates are valid dates </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.VerifyRecurrenceDate(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eWeekDays)">
+            <summary>
+            Checks to see if the event date matches eWeekDays being set for weekly, weekdays, or weekends
+            </summary>
+            <param name="weekdays"></param>
+            <returns> return Success if the givin weekday range is valid </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.VerifyRecurrenceDate(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate)">
+            <summary>
+            Verifies the event's day is in the eRecurrenceDate bitfield being set
+            </summary>
+            <param name="month_date"></param>
+            <returns> return Success if the event day is inside the specified range</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.VerifyRecurrenceDate(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth)">
+            <summary>
+            Checks to see if the event day and N'th week matches the eRecurrenceDayOfMonth being set
+            </summary>
+            <param name="DayOfMonth"></param>
+            <returns> return Success if the event day is in line with the eRecurrenceDayOfMonth</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Monthly(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate,System.UInt32)">
+            <summary>
+             Set event to reoccur every month for specified maximum number of counts 
+            </summary>
+            <param name="month_date"> month date, e.g. on the first, third, fifth of the month </param>
+            <param name="MaxNumberOfRecurrence"> maximum number of recurrences </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthMonth(System.UInt16,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate,System.UInt32)">
+            <summary>
+             Set event to reoccur every nth-month for specified maximum number of counts  
+            </summary>
+            <param name="nth_month"> nth month, e.g. every 1 or 2 or 5 months </param>
+            <param name="month_date"> month date, e.g. on the first, third, fifth of the month </param>
+            <param name="MaxNumberOfRecurrence"> maximum number of recurrences </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Monthly(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+             Set event to reoccur every nth-month until the expiration date 
+            </summary>
+            <param name="month_date"> e.g. on the first, third, fifth of the month </param>
+            <param name="ExpYear"> recurrence expiration year </param>
+            <param name="ExpMonth"> recurrence expiration month </param>
+            <param name="ExpDay"> recurrence expiration day </param>
+            <param name="ExpHour"> recurrence expiration hour </param>
+            <param name="ExpMinute"> recurrence expiration minute </param>
+            <returns> 
+            Returns eResultCodes.Success if successful 
+            </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthMonth(System.UInt16,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDate,System.UInt16,System.UInt16,System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+             Set event to reoccur every nth-month until the expiration date 
+            </summary>
+            <param name="nth_month"> e.g. every 1, 2 or 5 months </param>
+            <param name="month_date"> e.g. on the first, third, fifth of the month </param>
+            <param name="ExpYear"> recurrence expiration year e.g. 2014 </param>
+            <param name="ExpMonth"> recurrence expiration month e.g. 1..12 </param>
+            <param name="ExpDay"> recurrence expiration day e.g. 1...31 </param>
+            <param name="ExpHour"> recurrence expiration hour e.g. 0..23 </param>
+            <param name="ExpMinute"> recurrence expiration minute e.g. 0..59  </param>
+            <returns> 
+            Returns eResultCodes.Success if successful 
+            </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Monthly(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth)">
+            <summary>
+            Set event to reoccur every month on the 1-4 or last week of the month on given days  
+            </summary>
+            <param name="DayOfMonth"> day of month e.g. first sunday of the month </param>
+            <returns> Returns eResultCodes.Success on successful execution </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthMonth(System.UInt16,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRecurrenceDayOfMonth)">
+            <summary>
+            Set event to reoccur every nth-month on specific days. e.g. The 3rd Monday   
+            </summary>
+            <param name="nth_month">  nth month e.g. every 1, 2 or 5 months </param>
+            <param name="DayOfMonth"> Day of the month e.g second friday of the month </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Yearly(System.UInt16,System.UInt16)">
+            <summary>
+            Set event to reoccur every year on given date  
+            </summary>
+            <param name="month"> event month </param>
+            <param name="day"> event day </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.EveryNthYear(System.UInt16,System.UInt16,System.UInt16)">
+            <summary>
+            Set event to reoccur every nth year on given date  
+            </summary>
+            <param name="nth_year"> nth year e.g. every 1..xx  </param>
+            <param name="month">  month e.g. 1..12 </param>
+            <param name="day"> day e.g 1 to 31 </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Recurrence">
+            <summary>
+            Recurrence settings 
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Rate">
+            <summary>
+            Recurrent rate n-days, n-weeks, n-years
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceDays">
+            <summary>
+            Recurrence days e.g. MONDAY, TUESDAY ... FRIDAY
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceMonthDates">
+            <summary>
+            Recurrence Monthly dates e.g. first, second...
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceDayOfMonth">
+            <summary>
+            Nth Weekday of month e.g. 1st monday, 3rd thursday, 2nd friday etc... 
+            </summary>                
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceMonthOfYear">
+            <summary>
+            Month of yearly recurrence event
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceDayOfYear">
+            <summary>
+            Day of yearly recurrence event 
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceMaxNum">
+            <summary>
+            Maximum number of recurrences
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceExpYear">
+            <summary>
+            Recurrence expiration year
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceExpMonth">
+            <summary>
+            Recurrence expiration month
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceExpDay">
+            <summary>
+            Recurrence expiration day
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceExpHour">
+            <summary>
+            Recurrence expiration hour 
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.RecurrenceExpMinute">
+            <summary>
+            Recurrence expiration minute
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Reserved1">
+            <summary>
+            Future 1 - Reserved
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventRecurrence.Reserved2">
+            <summary>
+            Future 2 - Reserved
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals">
+            <summary>
+            This class contains methods for Scheduled Event Communication btw the timer engine and csharp helper
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.HelperReplyTimeout_Default">
+            <summary>
+            Helper reply default timeout 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.MaxEventGroupNameLen">
+            <summary>
+            Event group name max length
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.MaxEventNameLen">
+            <summary>
+            Event name max length
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.MaxEventDescriptionMaxLen">
+            <summary>
+            Event description max lenngth
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.MaxProgramIdTagLabelLen">
+            <summary>
+            Application program id tag with terminator char
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.MaxMessageQueForUnmanagedCodeSize_Default">
+            <summary>
+            Message queue from DLL to user application default len 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.MaxNumberOfMessages_Default">
+            <summary>
+            Max number of user callbacks messages default 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.UserCallBackThreadPriority_Default">
+            <summary>
+            Default User callback thread priority
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.HelperReplyTimeout">
+            <summary>
+            Helper reply timeout variable
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.MessageQueForUnmanagedCodeLen">
+            <summary>
+            Message queue len variable from DLL to user application
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.MaxNumberOfMessages">
+            <summary>
+            Max number of user callback messages    
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.UserCallBackThreadPriority">
+            <summary>
+            User call back thread priority
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ComHandle">
+            <summary>
+            Communication handle counter used for command packets to/from timer engine 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.PendingRequestList">
+            <summary>
+            List of pending timer event request commands waiting for reply from timer engine
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.PendingRequestListCriticalSection">
+            <summary>
+            pending request/reply packet list access protection "critical section" variable 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.PendingTimerEventsCriticalSection">
+            <summary>
+            Trigger event callback list access protection "critical section" variable 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.PendingTimerEvents">
+            <summary>
+            List of user events callbacks
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ScheduledEventGroupList">
+            <summary>
+            List of scheduled event groups
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ScheduledEventGroupListCriticalSection">
+            <summary>
+            Scheduled event group critical section
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.RetrieveEventCriticalSection">
+            <summary>
+            Retrieve event critical section variable 
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ByteArrayToStructure``1(System.Byte[])">
+            <summary>
+            Convert byte array to struct type
+            </summary>
+            <typeparam name="STRUCT_TYPE"></typeparam>
+            <param name="bytes"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.UserCallBackMessageQueue">
+            <summary>
+            Create message queue
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.UserEventCallBackThread">
+            <summary>
+            UserEvent CallBack Thread handle
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.GenHashKey(System.String,System.String,System.String)">
+            <summary>
+            Generates a new HashKey based on the ProgramIDTag, EventGroupName and EventName
+            </summary>
+            <param name="ProgramIDTag"> program tag </param>
+            <param name="EventGroupName"> group name </param>
+            <param name="EventName"> event name </param>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.UserEventCallBackThreadMethod(System.Object)">
+            <summary>
+            This method will take user callback messages of the Receive queue and make proper user callbacks.  
+            </summary>
+            <param name="obj"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.UserEventHandler(System.Byte[])">
+            <summary>
+            User event call back handler method 
+            </summary>
+            <param name="message"> message packet from the timer engine </param>
+            <returns> Return Success if the user callback was handled without any error </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ScheduledEventHandlerfunc(System.Int32)">
+            <summary>
+            Callback from timer engine   
+            </summary>
+            <param name="len"> packet length </param>
+            <returns> Returns Success if no error </returns>    
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.WaitForReplyMessage(Crestron.SimplSharp.Scheduler.ScheduledEventInternals.CPendingRequest,System.UInt32)">
+            <summary>
+            This function waits for reply from the timer engine DLL for posted request packet
+            </summary>
+            <param name="lpc"> ScheduledEventInternals.CPendingRequest </param>
+            <param name="timeout"> Maximum packet reply wait time </param>
+            <returns> Returns Success when reply is received. </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ControlSystem_ControllerProgramEventHandler(Crestron.SimplSharp.eProgramStatusEventType)">
+            <summary>
+            This event is triggered whenever a program event happens (such as stop, pause, resume, etc.)
+            </summary>
+            <param name="programStatusEventType"> These event arguments hold all the data to properly parse the event </param>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.GetCommunicationHandle">
+            <summary>
+            Return communication handle 
+            </summary>
+            <returns> Returns next avaliable communication handle </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.AddToPendingRequestList(System.UInt32,Crestron.SimplSharp.Scheduler.ScheduledEventInternals.eMessageTypes,System.Byte[])">
+            <summary>
+            Add entry pending packet request/reply link list
+            </summary>
+            <param name="handle"> communication handle </param>
+            <param name="messagetype"> message type </param>
+            <param name="message"> message </param>
+            <returns> returns reference to Pendingclass </returns>
+            <exception cref="T:System.ArgumentNullException"> Key is null </exception>
+            <exception cref="T:System.ArgumentException"> An element with the same key already exists in the dictionary </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.RemoveFromPendingRequestList(System.UInt32)">
+            <summary>
+            Remove entry from pending request list
+            </summary>
+            <param name="handle"></param>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.Initialize">
+            <summary>
+            Method to force call to constructor 
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.StartUpEvent">
+            <summary>
+            This event is sent on system startup 
+            </summary>
+            <returns> Returns Success if Startup was executed successfully otherwise, error code is returned </returns>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.MessageQueForUnmanagedCode">
+            <summary>
+            Message queue passed to unmanaged code for messages 
+            </summary>               
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.gch_MessageCallBackFromUnmanagedCode">
+            <summary>
+            GCHandle for callback handler delegate 
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.#cctor">
+            <summary>
+            constructor
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.CrestronEventTimerRequest(System.IntPtr,System.UInt32)">
+            <summary>
+            Send packet to timer engine DLL
+            </summary>
+            <param name="Packet"> command packet </param>
+            <param name="PacketLen"> packet length </param>
+            <returns> Return code, Success on successful execution, other eResult codes on error </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.CrestronEventTimerInit(Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ScheduledEventHandler,System.IntPtr,System.UInt32,System.UInt32)">
+            <summary>
+            Initialize timer event DLL
+            </summary>
+            <param name="pCallBack"> callback method </param>
+            <param name="pQueue"> Queue where the packets received from DLL to user apps are stored </param>
+            <param name="QueueLen"> Queue maximum length </param>
+            <param name="AppNum"> application number </param>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.CrestronEventTimerCleanup">
+            <summary>
+            Cleanup DLL before closing application
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.IsUnix">
+            <summary>
+            Property to indicate that we are running on Unix.
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.eMessageTypes">
+            <summary>
+            Command packet types to/from timer engine 
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.TIMEREVENT_REQUEST_HEADER_STRUCT">
+            <summary>
+            Command packet header structure from user application to timer engine
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.TIMEREVENT_REPLY_HEADER_STRUCT">
+            <summary>
+            Command packet header structure from helper to timer engine
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.DELETE_REQ_STR">
+            <summary>
+            Delete event request command packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.REGISTER_REQ_STRUCT">
+            <summary>
+            Register timer event command packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.UNREGISTER_REQ_STRUCT">
+            <summary>
+            Unregister timer event command packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.EVENTGROUPNAME_CMD_REQ_STR">
+            <summary>
+            Retrieve event group name request command packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.RETREIVEEVENTGROUPNAMES_REPLY_STRUCT">
+            <summary>
+            Retrieve event group name command reply packet structure 
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.DATETIME_OBJ_STRUCT">
+            <summary>
+            Date and time structure btw user application and timer engine
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.EXPIRATION_OBJ_STRUCT">
+            <summary>
+            Unacked event expiration structure exchanged btw user application and timer engine
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.SCHEDULE_OBJ_STRUCT">
+            <summary>
+            Scheduler object structure btw user application and timer engine
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.LOCATION_STRUCT">
+            <summary>
+            Location coordinate data structure btw the user application and timer engine
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.RECURRENCE_OBJ_STRUCT">
+            <summary>
+            Recurrence setting structure btw user application and timer engine
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.CREATEEVENT_REQ_STRUCT">
+            <summary>
+            Create event command request packet data structure    
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.CREATEEVENT_REPLY_STRUCT">
+            <summary>
+            Create event command reply packet data structure  
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.RETRIEVEEVENT_REQ_STR">
+            <summary>
+            Retrieve event command request packet data structure   
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.RETREIVEEVENT_REPLY_STRUCT">
+            <summary>
+            Retrieve event command reply packet data structure  
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.DELETE_PAUSE_RESUME_BY_EVENTGROUPNAME_REQ_STR">
+            <summary>
+            Pause, resume, delete event group command request packet data structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.DELETE_PAUSE_RESUME_BY_EVENTGROUPNAME_REPLY_STRUCT">
+            <summary>
+            Pause, resume, delete event group command reply packet data structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.PAUSE_RESUME_REQ_STR">
+            <summary>
+            Pause, resume event command request packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.SNOOZE_REQ_STRUCT">
+            <summary>
+            Acknowledge event command request packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.SNOOZE_REPLY_STRUCT">
+            <summary>
+            snooze command reply packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ACKEVENT_REQ_STRUCT">
+            <summary>
+            Acknowledge event request packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ACKEVENT_REPLY_STRUCT">
+            <summary>
+            Acknowledge event reply packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.PROGRAM_STOP_PAUSE_RESUME_REQ_STRUCT">
+            <summary>
+            Program stop event data structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.STARTUP_REQ_STRUCT">
+            <summary>
+            Startup message request command packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.FRIENDLYNAMECHANGE_REQ_STRUCT">
+            <summary>
+            FriendlyName change message request packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.FRIENDLYNAMECHANGE_REPLY_STRUCT">
+            <summary>
+            FriendlyName change message reply packet structure
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.CPendingRequest">
+            <summary>
+            Pending timer event packet request/reply parameters class
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ASYNCEVENT_TRIG_STRUCT">
+            <summary>
+            Asyncronous timer event data structure from timer engine 
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventInternals.ScheduledEventHandler">
+            <summary>
+            Callback method prototype for calls from timer engine DLL 
+            </summary>
+            <param name="len"> incoming packet length </param>
+            <returns> returns code </returns>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventGroup">
+             <summary>
+             Scheduled event group class
+             </summary>
+            <example>
+            <code>
+             private static ScheduledEventGroup _myGroup;
+            
+             /// Once the ScheduledEventGroup are initialized
+             /// the InitializeEvents function is called to create our events that
+             /// are stored within our ScheduledEventGroup.
+             public static bool InitializeGroup()
+             {
+                 bool returnValue = false;
+             	try
+             	{
+             		//Use the following console command to see all user events 
+             		//SHOWALLEVENTS -I:BUILTINSCHEDULER_SSP -G:Monte
+             		_myGroup = new ScheduledEventGroup("Monte"); 
+             		
+                     returnValue = true;
+             	}
+             	catch (Exception e)
+             	{
+             		ErrorLog.Error("Error Initializing BuiltInScheduler object. {0}", e.Message.ToString());
+             	}
+             	
+                 return returnValue;
+             }
+            
+             /// Deletes all persistent events saved to the control system. 
+             /// Only call this if you want to wipe all events. CANNOT BE UNDONE.
+             public static void ClearEvents()
+             {
+             	_myGroup.ClearAllEvents();
+             }
+            </code>
+            </example>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.InternalScheduledEvents">
+            <summary>
+            Scheduled event list  
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.InternalScheduledEventsCriticalSection">
+            <summary>
+            Scheduled events List critical section 
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.IsUserCallBackValid">
+            <summary>
+            Check whether the group event callback is not null
+            </summary>
+            <returns> returns true if usergroup callback is not null </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.EnableAllEvents">
+            <summary>
+            This method enables all group events, when an event is enabled its timer is started and monitored for expiration.
+            On event expiration the user callback is invoked.
+            </summary>
+            <returns>Returns success if all the events in the group were enabled successfully otherwise, returns error codes</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> 
+            This exception is thrown if event datetime, recurrence datetime are invalid or event datetime is earlier than current datetime or 
+            astronomical event, date or locations are invalid.                                        
+            </exception>
+            <exception cref="T:System.ArgumentNullException"> Exception is thrown if user callback and event group callbacks are null </exception>
+            <exception cref="T:System.ArgumentException"> This exception is thrown if recurrence is set for relative events. </exception>     
+            <exception cref="T:System.ObjectDisposedException"> This exception is thrown if event group object was disposed. </exception>  
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.DisableAllEvents">
+            <summary>
+            This method disable all group events, the events are stopped and will not invoke user callbacks. To enable events use the 
+            EnableAllEvents method. 
+            </summary>
+            <returns> Returns Success if group events were unregistered successfully otherwise, returns an error code </returns>
+            <exception cref="T:System.ObjectDisposedException"> This exception is thrown if event group object was disposed. </exception>  
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.OnUserEventGroupCallBack(Crestron.SimplSharp.Scheduler.ScheduledEvent,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eCallbackReason)">
+            <summary>
+            Make user event group callback 
+            </summary>
+            <param name="Event"> scheduled event </param>
+            <param name="type"> Callback trigger type</param>
+            <returns> return Success if successful or error </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.RegisterAllEvents">
+            <summary>
+            Register event group name
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.UnRegisterAllEvents">
+            <summary>
+            Unregister all events in this event group
+            </summary>
+            <returns> returns Success on successful execution or error </returns>
+            <exception cref="T:System.ObjectDisposedException"> This exception is thrown if event group object was disposed. </exception>  
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.GetGMTDayLightSavingStdOffset(System.Int32@,System.Int32@,System.Int32@)">
+            <summary>
+            Get GMT offset, daylight and standard time offsets 
+            </summary>
+            <param name="GMTOffset"> GMT offset returned </param>
+            <param name="DayLightSaving"> DayLightSaving offset returned </param>
+            <param name="StandardOffset"> Standard offset returned </param>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.FMODRemainder(System.Double,System.Double)">
+            <summary>
+            Modulus "fmod" division based on microsft implementation 
+            </summary>
+            <param name="dividend"></param>
+            <param name="divisor"></param>
+            <returns> returns float remainder </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.AstroClockCheck(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double,System.Double)">
+            <summary>
+            Checks the astronomical clock settings 
+            If the astronomical event time value is out of range the "ArgumentOutOfRangeException" exception is returned.  
+            This method requires firmware version 1.0012.0007 or later
+            </summary>
+            <param name="AstroEvent"> Astronomical event type e.g Sunset </param>
+            <param name="Year"> event year </param>
+            <param name="Month"> event month </param>
+            <param name="Day"> event day </param>
+            <param name="HourOffset"> event hour offset </param>
+            <param name="MinuteOffset"> event minute offset </param>
+            <param name="Latitude"> latitude </param>
+            <param name="Longitude"> longitude </param>
+            <returns>return 0 if successful</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.AstroClockCalculation(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent,System.Int32,System.Int32,System.Int32,System.Double,System.Double,System.UInt16@,System.UInt16@,System.UInt16@,System.UInt16@)">
+            <summary>
+            Astronomical clock calculation
+            If the astronomical event datetime is out of range "ArgumentOutOfRangeException" exception is returned.
+            </summary>
+            <param name="AstroEvent"> Astronomical event type e.g Sunset </param>
+            <param name="Year"> event year e.g 2014 </param>
+            <param name="Month">  event month e.g 1..12 </param>
+            <param name="Day">  event day e.g 1..31 </param>
+            <param name="Latitude"> location north or south latitude </param>
+            <param name="Longitude"> location east or west longitude </param>
+            <param name="MorningHour"> calculated event morning hour e.g. Sunrise or dawn time </param>
+            <param name="MorningMinutes"> calculated event morning minute e.g. Sunrise or dawn time </param>
+            <param name="NightHour"> calculated event night hour e.g. Sunset  or dusk time </param>
+            <param name="NightMinutes"> calculated event night hour e.g. Sunset  or dusk time </param>
+            <returns> return 0 if successful </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.ConvertTo24HrFormat(System.UInt16,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAmPm)">
+            <summary>
+            Convert Hour from 12 hour format to 24 hour format
+            </summary>
+            <param name="hours"> hour valid range 1..12 </param>
+            <param name="AmPm"> Time AM/PM settings </param>
+            <returns> Return converted hour </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.DeleteEvent(Crestron.SimplSharp.Scheduler.ScheduledEvent)">
+            <summary>
+            Delete Scheduler object and return delete result to the user. The Delete must be explicitly called by the user 
+            to remove events from the timer engine prior to expiration if desired. 
+            </summary>
+            <param name="sch"> Delete this Scheduler event object </param>
+            <returns> Returns Success if event was deleted otherwise, returns an error code </returns>
+            <exception cref="T:System.ObjectDisposedException"> This exception is thrown if event group object was disposed. </exception>  
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.RetrieveAllEvents">
+            <summary>
+            This method retrieves all events for the group from the timer engine and adds them to the event list. The user application must call 
+            this method at startup to synchronize user application with the timer engine and if it needs to use any of the group events. If there are 
+            existing events in the user application with same event name they will be overwritten.  
+            </summary>
+            <returns> Return Success if event retrieval was successful otherwise, an error code is returned </returns>
+            <exception cref="T:System.ObjectDisposedException"> This exception is thrown if event group object was disposed. </exception>  
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.RetrieveNextEvent(System.Int32@,System.Int32@)">
+            <summary>
+             Retrieve next group event for this group 
+            </summary>
+            <param name="TotalEntries"> Total number of events for this event group </param>
+            <param name="EntryIndex"> Input/output event index </param>
+            <returns> result code, on successful operation returns Success otherwise error codes are returned </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.ClearAllEvents">
+            <summary>
+            This method deletes all events for this event group. 
+            </summary>           
+            <returns> Returns Success if all group events were deleted otherwise, an error code is returned </returns>
+            <exception cref="T:System.ObjectDisposedException"> This exception is thrown if event group object was disposed. </exception>  
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.PauseAllEvents">
+            <summary>
+            This method pauses all events for this event group. If any of the group events cannot be paused an error 
+            is returned and non of the group events are paused. When an event is paused its timer will be stopped and
+            will not make callback to user application.
+            </summary>            
+            <returns> Returns Success if all group events were paused otherwise, an error code is returned </returns>
+            <exception cref="T:System.ObjectDisposedException"> This exception is thrown if event group object was disposed. </exception>  
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.ResumeAllEvents">
+            <summary>
+            This method resumes all paused events for this event group. All group events are started and will make callback on timer expiration with the 
+            following exceptions.               
+            All events that have expired and do not have recurrence are cleared and will not callback the user application.
+            All events that are acknowledgeable and have expired and are within the acknowledge expiration window will callback user application 
+            immediately. All relative events will resume where they left off when the pause cmd was issued.            
+            </summary>            
+            <returns> Returns Success if all group events were resumed otherwise, an error code is returned </returns>
+            <exception cref="T:System.ObjectDisposedException"> This exception is thrown if event group object was disposed. </exception>  
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.AcknowledgeAllEvents">
+            <summary>
+            Acknowledge all events for this event group  
+            </summary>            
+            <returns> Returns Success if all group events were acknowledged otherwise, returns error code </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.EventGroupAction(Crestron.SimplSharp.Scheduler.ScheduledEventInternals.eMessageTypes,System.Boolean)">
+            <summary>
+            Preform passed on command on given event group 
+            </summary>
+            <param name="msgreq"> action type pause, resume, clear,  etc... </param>
+            <param name="emptyEventGroupnameok"> empty EventGroup name is ok if set to true </param>
+            <returns></returns>   
+            <exception cref="T:System.ObjectDisposedException"> This exception is thrown if event group object was disposed. </exception>  
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.#ctor(System.String)">
+            <summary>
+            Scheduled event group constructor
+            </summary>
+            <param name="EventGroupName"> Event </param>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is returned if event group is empty or too long </exception>
+            <exception cref="T:System.ArgumentException"> This exception is returned if event group already exist </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.Dispose">
+            <summary>
+            Dispose of the event group object
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.disposed">
+            <summary>
+            Object dispose state
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.Dispose(System.Boolean)">
+            <summary>
+            Dispose of the object 
+            </summary>
+            <param name="disposing"></param>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.Finalize">
+            <summary>
+            The event group destructor removes reference to this group from the group list
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.Name">
+            <summary>
+            Event group unique name 
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.ScheduledEvents">
+            <summary>
+            Scheduled event list ready only public collection 
+            </summary>
+        </member>
+        <member name="E:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.UserGroupCallBack">
+            <summary>
+            User event group callback
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventGroup.UserEventGroupCallBack">
+            <summary>
+            User event group callback
+            </summary>
+            <param name="SchEvent"> Scheduled event </param>
+            <param name="type"> Callback trigger type</param>
+            <returns> None </returns>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEvent">
+             <summary>
+             The scheduler timer event class contains event parameters and methods for accessing events settings
+             </summary>
+             <example>
+             <code>
+            
+             // Initializes ScheduledEvents that are held within the EventGroup.
+             public static void InitializeEvents(ScheduledEventGroup myGroup;)
+             {
+             	try
+            	 	{
+             		// Load all events that where saved to the control system. 
+             		_myGroup.RetrieveAllEvents();
+             	}
+             	catch (ObjectDisposedException e)
+             	{
+             		ErrorLog.Error("Error while loading events: {0}", e.Message.ToString());
+             	}
+            
+             	// Only create events that have not been saved already.
+             	if (myGroup.ScheduledEvents.ContainsKey("Alarm") == false &amp;&amp; _myGroup != null)
+             	{
+             		try
+             		{
+             			// Create a new Scheduled Event with the name you wish to give it and the group it is associated with. 
+             			ScheduledEvent alarm = new ScheduledEvent("Alarm", _myGroup);
+            
+             			alarm.Description = "Morning alarm"; // set a description of the event
+            
+             			// If the event is acknowledgeable then it will not be discarded once it has executed. The event needs to be Acknowledged before it will be considered 
+             			// executed. Meaning that the acknowledge function corresponding to the ScheduledEvent object created needs to be called.
+             			alarm.Acknowledgeable = true;
+            
+             			// Make the event save to the the control system. So it will persist even on shutdown of the device.
+             			alarm.Persistent = true;
+            
+             			// Create a user callback event with our callback method.
+             			// this will execute our method which will perform our event action.
+             			alarm.UserCallBack += new ScheduledEvent.UserEventCallBack(Scheduler_UserCallBack);
+            
+            	 			// Set the first day of the week as Monday. (options are Sunday or Monday.)
+             			// IMPORTANT: must define the recurrence of the event BEFORE the time of the event is set. 
+             			alarm.DateAndTime.SetFirstDayOfWeek(ScheduledEventCommon.eFirstDayOfWeek.Monday);
+            
+             			// Sets the event time to happen one minute after execution of the program.
+             			// IMPORTANT: If you have a reoccurring event you must set the time to be on the same day as the event will occur.
+             			// SSP will throw an exception if you do not.
+             			alarm.DateAndTime.SetAbsoluteEventTime(new DateTime().AddMinutes(1));
+            
+             			// If the event has not been acknowledged in the time specified in these parameters then it will automatically be acknowledged. 
+             			alarm.AcknowledgeExpirationTimeout.Hour = 1;
+             			alarm.AcknowledgeExpirationTimeout.Minute = 0;
+            
+             			// Set the light to turn on only on weekdays.
+             			alarm.Recurrence.Weekdays();
+            
+             			// Starts and enables the event. At this time the event is waiting to be expired in order to invoke the defined callback function.
+             			alarm.Enable();
+            
+             			// Feedback that the event was created.
+             			CrestronConsole.PrintLine("Event 1 Created {0} {1}:{2}", alarm.Name, alarm.DateAndTime.Hour, alarm.DateAndTime.Minute);
+             		}
+             		catch (Exception e)
+             		{
+            				ErrorLog.Error("Error while initializing morning alarm event: {0}, {1}", e.Message.ToString(), e.StackTrace);
+             		}
+             	}
+                 else
+                 {   
+                     if(_myGroup == null)
+                         throw new NullReferenceException();
+                     else
+             	        CrestronConsole.PrintLine("Alarm event already created.");
+                 }
+             }
+             
+             /// Callback function for the ScheduledEvent, this is called when the event expires.
+             /// The examples in there are run linearly for the sake of simplicity. 
+             /// In a normal use case asynchronous functionality should be implemented for best results.
+             private static void Scheduler_UserCallBack(ScheduledEvent SchEvent, ScheduledEventCommon.eCallbackReason type)
+             {
+                 // If the user callback was triggered by the event expiring then enter this conditional block.
+                 if (type == ScheduledEventCommon.eCallbackReason.NormalExpiration)
+                 {
+                    // check the name of the event so we know what the event is specifically.
+                    if (SchEvent.Name == "Alarm")
+                    {
+            
+                        // Make an update in the console for alternate feedback.
+                        ErrorLog.Notice("BEEP! BEEP! Alarm has triggered.");
+            
+                        // snooze the event for 1 minute.
+                        if (SchEvent.Snooze(1) == ScheduledEventCommon.eResultCodes.Success)
+                        {
+                           ErrorLog.Notice("Alarm Snoozed....");
+                        }
+            
+                 }else
+                 {
+                    // If an event was snoozed, then it will go to this condition and execute.
+                    if (type == ScheduledEventCommon.eCallbackReason.SnoozeExpiration)
+                    {
+                        if (SchEvent.Name == "Alarm")
+                        {
+                            ErrorLog.Notice("BEEP! BEEP! Snooze over!!");
+            
+                            if (SchEvent.Acknowledgeable)
+                            {
+                                // When we acknowledge an acknowledgeable event it will be inactive until its next scheduled time to expire.
+                                // You can call this from any point that your event object is within scope.
+                                SchEvent.Acknowledge();
+                            }
+                            else
+                            {
+                                ErrorLog.Error("Cannot acknowledge this event.");
+                            }
+                        }
+                    } 
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEvent.description">
+            <summary>
+            Parameter for storing description string
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEvent.DateAndTime">
+            <summary>
+            Event datetime setting class reference
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEvent.Recurrence">
+            <summary>
+            Event recurrence time class reference
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEvent.AcknowledgeExpirationTimeout">
+            <summary>
+            Acknowledgeable event expiration timeout class reference
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEvent.Location">
+            <summary>
+            Location coordinates class reference
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEvent.persistent">
+            <summary>
+            Parameter for storing persistent state 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEvent.acknowledgeenable">
+            <summary>
+            Parameter for storing acknowledge enable state 
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEvent.disposed">
+            <summary>
+            Indicates if this event has been disposed of
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Create">
+            <summary>
+            This method is used to create scheduled event in the timer engine. It checks all the event parameters and will throw exception 
+            on any invalid event parameters.
+            </summary>
+            <returns> Returns success if the event is created and registered successfully otherwise, returns the eResultCodes error codes </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> 
+            This exception is thrown if event datetime, recurrence datetime are invalid or event datetime is earlier than current datetime or 
+            astronomical event, date or locations are invalid.                                        
+            </exception>
+            <exception cref="T:System.ArgumentException"> This exception is thrown if recurrence is set for relative events. </exception>     
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Enable">
+            <summary>
+            This method enables and starts the scheduled event timer so, when the event expires the user callback is invoked. For existing events if
+            the event time is earlier or same as the current time or event time is within the acknowledgeable expiration timeout the user callback 
+            is invoked immediately. All relative event timers are started from initial offset. 
+            </summary>
+            <returns> Returns success if the event is created and registered successfully otherwise, an error code is returned </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> 
+            This exception is thrown if event datetime, recurrence datetime are invalid or event datetime is earlier than current datetime or 
+            astronomical event, date or locations are invalid.                                        
+            </exception>
+            <exception cref="T:System.NullReferenceException"> Exception is thrown if user callback and event group callbacks are null </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Disable">
+            <summary>
+            This method disables the scheduled event. The event is stopped and will not make the callback. Use the Enable method 
+            to restart the event.
+            </summary>
+            <returns> Success is returned if event is disabled otherwise, error code is returned </returns>
+            <exception cref="T:System.ArgumentNullException"> This exception is thrown if event does not belong to any event group </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if event Hashkey is invalid </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.OnUserCallBack(Crestron.SimplSharp.Scheduler.ScheduledEvent,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eCallbackReason)">
+            <summary>
+            This method invokes user event call back
+            </summary>
+            <param name="Event"> Event passed to user call back </param>
+            <param name="type"> Callback trigger type</param>
+            <returns>  return Success on successful execution or error  </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Register">
+            <summary>
+            Register timer event with timer application
+            </summary>
+            <returns> Return Success on successful execution </returns>
+            <exception cref="T:System.ArgumentNullException"> This exception is thrown if event group is null </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception thrown if Hashkey is invalid </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.UnRegister">
+            <summary>
+            UnRegister timer event with timer application
+            </summary>
+            <returns> Return Success if the event is unregistered otherwise, return error code </returns>
+            <exception cref="T:System.ArgumentNullException"> Exception is thrown if event group is null </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> Exception thrown if Hashkey is invalid </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Pause">
+            <summary>
+            This method pauses a scheduled event, when an event is paused its timer is stopped and the user callback is disabled. Use Resume method
+            to restore event to running state.              
+            </summary>
+            <returns> Success is returned if event is paused otherwise, error code is returned </returns>
+            <exception cref="T:System.ArgumentNullException"> This exception is thrown if event group is null </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception thrown if Hashkey is invalid </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Resume">
+            <summary>
+            This method resumes a paused scheduled event. The event timer is started and its callback is enabled with the following exceptions. 
+            If the event is expired and does not have recurrence it is cleared and will not callback the user application.
+            If the event is acknowledgeable and is expired and is within the acknowledge expiration window it will callback user application 
+            immediately. A relative event will resume where it left off when the pause cmd was issued.
+            </summary>
+            <returns> Success is returned if event is resumed otherwise, error code is returned </returns>
+            <exception cref="T:System.ArgumentNullException"> This exception is thrown if event group is null </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if Hashkey is invalid </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.PauseResume(Crestron.SimplSharp.Scheduler.ScheduledEventInternals.eMessageTypes)">
+            <summary>
+            Send scheduled event pause or resume command 
+            </summary>
+            <param name="outgoing"> event type pause or resume </param>
+            <returns> return Success if successful </returns>
+            <exception cref="T:System.ArgumentNullException"> This exception is thrown if event group is null </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if Hashkey is invalid </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Snooze">
+            <summary>
+            This method sets a snooze event for 9 minutes
+            </summary>
+            <returns> Success is returned if snooze was successful otherwise, error codes are returned </returns>
+            <exception cref="T:System.ArgumentNullException"> This exception is thrown if hash key is invalid or if event group is null </exception>
+            <remarks>The event must be Acknowledgeable to snooze</remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Snooze(System.UInt32)">
+            <summary>
+            This method set a snooze event for user programmable time in minutes     
+            </summary>
+            <param name="minutes"> minutes e.g. 5min or 10min range {1..250 min} </param>
+            <returns> Success is returned if snooze was successful otherwise, an error code is returned </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if the snooze argument is out of range </exception>
+            <remarks>The event must be Acknowledgeable to snooze</remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Acknowledge">
+            <summary>
+            This method is called to acknowledge an event. When an acknowledgeable event is invoked the user application 
+            must call this method to inform the timer engine that the event was processed.
+            </summary>
+            <returns> Success is returned if event was acknowledged otherwise, an error code is returned </returns>
+            <exception cref="T:System.ArgumentNullException"> This exception is thrown if event does not belong to a group </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception thrown if Hashkey is invalid </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.#ctor(System.String,Crestron.SimplSharp.Scheduler.ScheduledEventGroup)">
+            <summary>
+            This is the scheduled event constructor
+            </summary>
+            <param name="EventName"> Event name </param>
+            <param name="EventGroupRef"> Event group </param>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if event name is too long or empty </exception> 
+            <exception cref="T:System.ArgumentNullException"> This exception is thrown if event name or group is null </exception> 
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Finalize">
+            <summary>
+            Schedule event destructor.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Dispose">
+            <summary>
+            Dispose of the ScheduledEvent
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEvent.Dispose(System.Boolean)">
+            <summary>
+            Cleans up the event, removes it engine and ScheduledEventGroup
+            </summary>
+            <param name="disposing">true if user explicitly calls Dispose(); otherwise called by GC</param>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEvent.EventState">
+            <summary>
+            Get event status whether Paused, Enabled or Disabled
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEvent.Name">
+            <summary>
+            Event unique name
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEvent.Description">
+            <summary>
+            Event Description string
+            </summary>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if Description parameter is not allowed to be changed </exception> 
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEvent.Persistent">
+            <summary>
+            Set or Get event persistent state (if set event data is saved in persistent memory)
+            </summary>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if Persistent parameter is not allowed to be changed </exception> 
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEvent.Acknowledgeable">
+            <summary>
+            Indicates if the event is acknowledgeable. 
+            This implies that when the event fires the event has to be acknowledged using the Acknowledge method. This is used for critical events
+            where the application needs to ensure that it has processed the event. If an event is marked as acknowledgeable and the event triggers
+            and the program restarts or the controller reboots, the event will be rethrown if we do not receive the acknowledge within the
+            expiration time as set by the AcknowledgeExpirationTimeout property.
+            </summary>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if the Acknowledgeable parameter is not allowed to be changed </exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEvent.HashKey">
+            <summary>
+            Hash key use to access the object from the timer engine
+            </summary>
+        </member>
+        <member name="E:Crestron.SimplSharp.Scheduler.ScheduledEvent.UserCallBack">
+            <summary>
+            User event callback 
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEvent.EventGroup">
+            <summary> 
+            Event group 
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEvent.WriteLocked">
+            <summary>
+            Event parameters cannot be modified when this flags is set 
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEvent.UserEventCallBack">
+            <summary>
+            User event callback
+            </summary>
+            <param name="SchEvent"> Scheduled event </param>
+            <param name="type"> Callback trigger type </param>
+            <returns> None </returns>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventLocation">
+            <summary>
+            Coordinates for astronomical time calculations class
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventLocation.latitude">
+            <summary>
+            Latitude north or south coordinate
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventLocation.longitude">
+            <summary>
+            Longitude east or west coordinate
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventLocation.Event">
+            <summary>
+            Reference to scheduled event object
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventLocation.#ctor(Crestron.SimplSharp.Scheduler.ScheduledEvent)">
+            <summary>
+            Location class constructor, initialize latitude and longitude with registry settings
+            </summary>
+            <param name="ParentEvent"> Reference to scheduled event object </param>
+            <exception cref="T:System.ArgumentNullException"> This exception is thrown if a null event object reference is passed </exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventLocation.Latitude">
+            <summary>
+            Set or get Latitude coordinate e.g. for north (##.###), for south (-##.###) 
+            </summary>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if latitude value is changed after event is being created or enabled </exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventLocation.Longitude">
+            <summary>
+            Set or get longitude coordinate e.g. for east (##.###), for west (-##.###) coordinate
+            </summary>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if longitude value is changed after event is being created or enabled </exception>
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventAckExpiration">
+            <summary>
+            Acknowledgeable event expiration timeout class
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventAckExpiration.hour">
+            <summary>
+            Acknowledge expiration timeout hour  
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventAckExpiration.minute">
+            <summary>
+            Acknowledge expiration timeout minute  
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventAckExpiration.Event">
+            <summary>
+            Reference to scheduled event object
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventAckExpiration.#ctor(Crestron.SimplSharp.Scheduler.ScheduledEvent)">
+            <summary>
+            Acknowledgeable event expiration timeout class constructor. 
+            Initialize the expiration time parameters.
+            </summary>
+            <param name="ParentEvent"> Reference to scheduled event object </param>
+            <exception cref="T:System.ArgumentNullException"> This exception is thrown if a null scheduled event reference is passed </exception> 
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventAckExpiration.Hour">
+            <summary>
+            Set or get acknowledgeable event expiration timeout hour 
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if the hour is out of range </exception> 
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if the hour is being changed after event is created or enabled </exception> 
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventAckExpiration.Minute">
+            <summary>
+            Set or get acknowledgeable event expiration timeout minute 
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if the hour is out of range </exception> 
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if the hour is being changed after the event is created or enabled </exception> 
+        </member>
+        <member name="T:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime">
+            <summary>
+            Event datetime settings and methods class
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.Event">
+            <summary>
+            Reference to scheduled event object
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.#ctor(Crestron.SimplSharp.Scheduler.ScheduledEvent)">
+            <summary>
+            DateTime Scheduled Event constructor
+            </summary>
+            <param name="ParentEvent"> Reference to scheduled event object </param>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.ToString">
+            <summary>
+            Formats a string for date and time.
+            </summary>
+            <returns>A string in MONTH/DAY/YEAR HOUR:MINUTEs format.  MM will always be padded to 2 digits.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.SetFirstDayOfWeek(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eFirstDayOfWeek)">
+            <summary>
+            This method sets first day of the week.  
+            </summary>
+            <param name="FirstDayOfTheWeek"> first day of the week e.g SUNDAY or MONDAY </param>
+            <returns> Returns Success if first day of the week parameter is valid </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.SetRelativeEventTime(System.UInt16,System.UInt16)">
+            <summary>
+            Set relative time event in hour and minutes, e.g. 5 hours and 30 minutes
+            </summary>
+            <param name="RelativeHour"> hour offset e.g. 0..23 </param>
+            <param name="RelativeMinutes"> minute offset e.g. 0..1439 </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> hour or minute is out of range, max hour:minute offset allowed is 23 hours and 59 minutes </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.AddDay(System.UInt16@,System.UInt16@,System.UInt16@,System.UInt16)">
+            <summary>
+            Add days to date and time
+            </summary>
+            <param name="year"> year e.g. 2014 </param>
+            <param name="month"> month e.g. 1..12 </param>
+            <param name="day"> day e.g. 1..31 </param>
+            <param name="add_days"> number of days to add </param>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.SetAbsoluteEventTime(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay,System.Int32,System.Int32)">
+            <summary>
+            Set absolute time relative to now for e.g. Tomorrow at 5:30am  
+            </summary>
+            <param name="eRelativeType"> event type e.g Tomorrow, UpcomingMonday  </param>
+            <param name="hours"> hour e.g. 0..23 </param>
+            <param name="minutes"> minute e.g. 0..59 </param>  
+            <returns> Returns eResultCodes.Success if successful </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if hour or minute is out of range, max hour:minute offset allowed is 23 hours and 59 minutes </exception>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if timer settings are not allowed to be changed </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.SetAbsoluteEventTime(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eRelativeDay,System.Int32,System.Int32,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAmPm)">
+            <summary>
+            Set relative event e.g for Tomorrow at 6:30 pm
+            </summary>
+            <param name="etype"> relative days from current day, ex UpcomingMonday, Tomorrow</param>
+            <param name="hours"> event hour 1..12 </param>
+            <param name="minutes"> event minutes 0..59 </param>   
+            <param name="AmPm"> event time in AM or PM </param>
+            <returns> Returns eResultCodes.Success if successful </returns>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if timer settings are not allowed to be changed </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.SetAbsoluteEventTime(System.DateTime)">
+            <summary>
+            Set absolute event at date and time
+            </summary>
+            <param name="datetime"> event date and time </param>
+            <returns> Returns eResultCodes.Success if successful.</returns>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if timer settings are not allowed to be changed </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.SetAbsoluteEventTime(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Set absolute event at given date and time
+            </summary>
+            <param name="year"> event year e.g. 2014 </param>
+            <param name="month"> event month e.g. 1..12 </param>
+            <param name="day"> event day e.g. 1..31 </param>
+            <param name="hour"> hour in 0...23 hours </param>
+            <param name="minute"> minutes in 1..59 </param>
+            <returns> Returns eResultCodes.Success if successful. </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if date or time settings are out of range </exception>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if timer settings are not allowed to be changed </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.SetAbsoluteEventTime(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAmPm)">
+            <summary>
+            Set an absolute time event at given date and time
+            </summary>
+            <param name="year"> year e.g. 2014 </param>
+            <param name="month"> month e.g. 1..12</param>
+            <param name="day"> day e.g. 1..31 </param>
+            <param name="hour"> hour e.g. 1...12 range </param>            
+            <param name="minute"> minutes e.g. 1..59 </param>
+            <param name="ampm"> AM/PM time selector </param>
+            <returns> Returns eResultCodes.Success if successful. </returns>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if timer settings are not allowed to be changed </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.SetAstronomicalEventTime(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Set astronomical event time at given date
+            </summary>
+            <param name="astEvent"> event type </param>
+            <param name="year"> year e.g. 2014 </param>
+            <param name="month"> month e.g. 1..12 </param>
+            <param name="day"> day e.g. 1..31 </param>
+            <returns> Returns eResultCodes.Success if successful. </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.SetAstronomicalEventTime(Crestron.SimplSharp.Scheduler.ScheduledEventCommon.eAstronomicalEvent,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Set astronomical event time at given date with +/- offset from astronomical event of (eSunrise/eSunset , dawn/dusk etc...)
+            </summary>
+            <param name="astEvent"> astronomical event </param>
+            <param name="year"> year e.g. 2014 </param>
+            <param name="month"> month e.g. 1..12 </param>
+            <param name="day"> day e.g. 1..31 </param>
+            <param name="hourOffset"> +/- hour e.g. -10..10 </param>
+            <param name="minuteOffset"> +/- minute e.g. -30..30 </param>
+            <returns> Returns eResultCodes.Success if successful. </returns>
+            <exception cref="T:System.InvalidOperationException"> This exception is thrown if timer settings are not allowed to be changed </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException"> This exception is thrown if astronomical event date year, month or day are invalid </exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.Year">
+            <summary>
+            Calendar year
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.Month">
+            <summary>
+            Calendar month
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.Day">
+            <summary>
+            Calendar day
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.Hour">
+            <summary>
+            Calendar hour
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.Minute">
+            <summary>
+            Calendar minute
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.EventType">
+            <summary>
+            Event type absolute, relative, astronomical
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.AstronomicalEvent">
+            <summary>
+            Astronomical event sub-type
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.HourOffset">
+            <summary>
+            +/- hour offset added to astronomical or relative event (e.g. 1 hour before Sunrise, 1 hour after Sunset  etc...)
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.MinuteOffset">
+            <summary>
+            +/- minute offset added to astronomical or relative event (e.g. 10 min before dawn, 20 min after dusk etc...)
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.FirstDayOfWeek">
+            <summary>
+            First day of the week
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.Reserved1">
+            <summary>
+            Future use 
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.Reserved2">
+            <summary>
+            Future use 
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.Reserved3">
+            <summary>
+            Future use 
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.Scheduler.ScheduledEventDateTime.Reserved4">
+            <summary>
+            Future use 
+            </summary>
+        </member>
+    </members>
+</doc>
