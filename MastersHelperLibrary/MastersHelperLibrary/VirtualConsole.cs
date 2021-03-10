@@ -158,14 +158,6 @@ namespace MastersHelperLibrary
         }
 
         /// <summary>
-        /// This is exactly the same as the Send method.  Just named Trace to make S+ programmers more comfortable
-        /// </summary>
-        /// <param name="Message">String to send use string.Format() to include parameters and variables in your message</param>
-        public static void Trace(string Message)
-        {
-            Send(Message, true);
-        }
-        /// <summary>
         /// Sends a message to all connected VirtualConsole clients and adds the console prompt
         /// </summary>
         /// <param name="Message">Message to send</param>
