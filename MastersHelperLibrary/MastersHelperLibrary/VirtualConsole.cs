@@ -1,107 +1,346 @@
-﻿using Crestron.SimplSharp;                          	// For Basic SIMPL# Classes
-using Crestron.SimplSharp.CrestronSockets;              // For Sockets
-using Crestron.SimplSharpPro.CrestronThread;        	// For Threading
+﻿using System;
+using System.Collections.Generic;
+using System.Collections.Concurrent;
+using System.Linq;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
+using Crestron.SimplSharp;
+using Crestron.SimplSharp.WebScripting;
+using Crestron.SimplSharpPro;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Crestron.SimplSharp.CrestronIO;
 
 namespace MastersHelperLibrary
 {
-    public class VirtualConsole
+    public static class VirtualConsole
     {
-        // Private Containers and Variables
-        private TCPServer myServer;
+        private static TcpListener TcpServer;
+        private static int TcpPort;
+        private static bool Active;
 
-        private Thread myThread;
-        private bool RunThread = false;
-        private string[] lastMessage = new string[10];
+        private static ConcurrentDictionary<int, VirtualConsoleClient> TcpClients = new ConcurrentDictionary<int, VirtualConsoleClient>();
+        private static Thread ServerThread;
+        private static string RoomId = InitialParametersClass.RoomId;
+        //private static string ProcType = InitialParametersClass.ControllerPromptName;
+        private static HttpCwsServer CwsServer;
 
-        private ushort port;
-        private EthernetAdapterType adapter;
+        private static Dictionary<string, VirtualConsoleCommand> CommandDictionary = new Dictionary<string, VirtualConsoleCommand>();
 
-        //Constructor
+        static VirtualConsole()
+        {
+            CrestronEnvironment.ProgramStatusEventHandler += CrestronEnvironment_ProgramStatusEventHandler;
+
+
+
+            Thread T = new Thread(() =>
+            {
+                Thread.Sleep(5000);
+                try
+                {
+                    AddNewConsoleCommand(HelpHandler, "Help", "Shows help menu");
+                    AddNewConsoleCommand(HelpHandler, "?", "Shows help menu");
+
+                    CwsServer = new HttpCwsServer("/VirtualConsole");
+                    CwsServer.HttpRequestHandler = new CwsUnknownRequestProcessor();
+
+                    HttpCwsRoute EnabledRoute = new HttpCwsRoute("Active");
+                    EnabledRoute.RouteHandler = new CwsRequestProcessor();
+                    EnabledRoute.Name = "Active";
+
+                    CwsServer.Routes.Add(EnabledRoute);
+
+                    CwsServer.ReceivedRequestEvent += CwsServer_ReceivedRequestEvent;
+
+                    CwsServer.Register();
+
+                }
+                catch (Exception ex)
+                {
+                    ErrorLog.Exception("Exception starting Virtual Console CWS", ex);
+                }
+            });
+            T.Start();
+        }
+
+        private static void CwsServer_ReceivedRequestEvent(object sender, HttpCwsRequestEventArgs args)
+        {
+            VirtualConsole.Send("Received Request");
+        }
+
+        private static int GetNextClientId()
+        {
+            int k = 0;
+            while (TcpClients.ContainsKey(k))
+            {
+                k++;
+            }
+            return k;
+        }
+
         /// <summary>
-        /// Default Constructor to build and start the Virtual Console Server at the port
-        /// Specified in the parameter.  The server will start and accept up to 5 connections
-        /// this class creates a worker thread that will stay running as long as the class is used
-        /// the deconstructor will tell the thread to end if the program is stopped or the class is no longer in use
-        /// If a conflicting port number is used it will fail to open the port.
+        /// Starts the VirtualConsole server
         /// </summary>
-        /// <param name="Port">network port number to listen on from 0 to 65535 is valid</param>
-        public VirtualConsole(ushort Port)
+        /// <param name="Port">TCP port to listen on</param>
+        /// <returns>Returns true is successful</returns>
+        public static bool Start(int Port)
         {
-            port = Port;  // save it for later use
+            bool Success = false;
 
-            adapter = EthernetAdapterType.EthernetLANAdapter;
 
-            // Setup our server
-            myServer = new TCPServer("0.0.0.0", port, 512, adapter, 5);
-            myServer.SocketStatusChange += MyServer_SocketStatusChange;
 
-            //Get the thread running
-            myThread = new Thread(ThreadCode, null);
-            RunThread = true;
-            myThread.Start();   // Start our thread
-        }
-
-        //Deconstructor
-        ~VirtualConsole()
-        {
-            RunThread = false;  // Sutdown the thread on deconstruct
-        }
-
-        private void MyServer_SocketStatusChange(TCPServer myTCPServer, uint clientIndex, SocketStatus serverSocketStatus)
-        {
-            if (serverSocketStatus == SocketStatus.SOCKET_STATUS_CONNECTED)  // Did we get a connect event? if so send the header
+            TcpPort = Port;
+            if (TcpServer != null)
             {
-                this.PrintLine("---------------------\x0d\x0a");
-                this.PrintLine("Connected\x0d\x0a");
-                this.PrintLine("---------------------\x0d\x0a");
+                Active = false;
+                Stop();
+            }
+
+            ErrorLog.Notice("Starting Virtual Console");
+            try
+            {
+                TcpServer = new TcpListener(System.Net.IPAddress.Any, TcpPort);
+                TcpServer.Start();
+                Success = true;
+                Active = true;
+            }
+            catch (Exception ex)
+            {
+                ErrorLog.Exception("Error Starting Virtual Console", ex);
+            }
+
+            if (Success)
+            {
+                ServerThread = new Thread(() =>
+                {
+                    while (true)
+                    {
+                        try
+                        {
+                            TcpClient Client = TcpServer.AcceptTcpClient();
+                            VirtualConsoleClient VcClient = new VirtualConsoleClient(Client, RoomId);
+                            VcClient.OnConnection += VcClient_OnConnection;
+                            VcClient.OnDataReceived += VcClient_OnDataReceived;
+                            VcClient.Send(String.Format("{0}>", RoomId));
+                            TcpClients.TryAdd(GetNextClientId(), VcClient);
+                        }
+                        catch
+                        {
+                            break;
+                        }
+
+                    }
+                });
+                ServerThread.Start();
+            }
+            return Success;
+        }
+
+        /// <summary>
+        /// Stops the VirtualConsole server and disconects all clients
+        /// </summary>
+        public static void Stop()
+        {
+            ErrorLog.Notice("Stopping Virtual Console");
+            try
+            {
+                Active = false;
+                TcpServer.Stop();
+                foreach (VirtualConsoleClient C in TcpClients.Values)
+                {
+                    if (C.Connected) { C.Close(); }
+                }
+            }
+            catch { }
+        }
+
+        /// <summary>
+        /// This is exactly the same as the Send method.  Just named Trace to make S+ programmers more comfortable
+        /// </summary>
+        /// <param name="Message">String to send use string.Format() to include parameters and variables in your message</param>
+        public static void Trace(string Message)
+        {
+            Send(Message, true);
+        }
+        /// <summary>
+        /// Sends a message to all connected VirtualConsole clients and adds the console prompt
+        /// </summary>
+        /// <param name="Message">Message to send</param>
+        public static void Send(string Message)
+        {
+            Send(Message, true);
+        }
+
+        /// <summary>
+        /// Sends a message to all connected VirtualConsole clients and optionally adds the console prompt
+        /// </summary>
+        /// <param name="Message">Messsage to send</param>
+        /// <param name="Final">If true, adds the console prompt</param>
+        public static void Send(string Message, bool Final)
+        {
+            foreach (VirtualConsoleClient C in TcpClients.Values)
+            {
+                if (C.Connected)
+                {
+                    C.Send(Message, Final);
+                }
             }
         }
 
         /// <summary>
-        /// Send a string to a telnet console connected to our virtual console at the port specified in the default constructor
-        /// if you need to send variables then use a string.format() inside the method call
+        /// Registers a user command with VirtualConsole.  Callback function must accept a string and return a string.
         /// </summary>
-        /// <param name="s">string to send to the virtual console</param>
-        public void PrintLine(string s)
+        /// <param name="UserFunction">Callback method to be invoked when the</param>
+        /// <param name="UserCmdName">Name of the UserCommand to be registered as a string. NO SPACES</param>
+        /// <param name="UserHelp">Short help description as a string</param>
+        /// <returns>Returns true if command was able to be added</returns>
+        /// <exception cref="System.ArgumentException">Thrown when UserCmdName contains spaces or is null, or callback method is null</exception>
+        public static bool AddNewConsoleCommand(VirtualConsoleCmdFunction UserFunction, string UserCmdName, string UserHelp)
         {
-            CrestronConsole.PrintLine("  Printline : {0} : {1}", myServer.NumberOfClientsConnected, myServer.ServerSocketStatus);
-
-            byte[] payload = System.Text.Encoding.ASCII.GetBytes(s + "\x0D\x0A"); // Convert the string to Bytes ASCII
-            for (uint i = 1; i <= 5; i++)
+            if (UserCmdName.Contains(" ") || String.IsNullOrWhiteSpace(UserCmdName))
             {
-                //myServer.SendData(i, payload, payload.Length);                    // This will lose data on connect
-                myServer.SendDataAsync(i, payload, payload.Length, SentDataMethod); // this is more robust
+                throw new ArgumentException("UserCmdName may not contain spaces", "UserCmdName");
+            }
+            else if (UserFunction == null)
+            {
+                throw new ArgumentException("UserFunction may not be null", "UserFunction");
+            }
+            else if (CommandDictionary.ContainsKey(UserCmdName.ToUpper()))
+            {
+                return false;
+            }
+            else
+            {
+                VirtualConsoleCommand V = new VirtualConsoleCommand(UserFunction, UserCmdName.ToUpper(), UserHelp);
+                CommandDictionary.Add(UserCmdName.ToUpper(), V);
+                return true;
             }
         }
 
-        private void SentDataMethod(TCPServer myTCPServer, uint clientIndex, int numberOfBytesSent) // empty method to make async happy
+        private static void VcClient_OnDataReceived(object sender, DataEventArgs e)
         {
+            string Command, Parameters;
+
+            VirtualConsoleClient VcClient = (VirtualConsoleClient)sender;
+            string Data = e.Data.Trim();
+
+            if (Data.IndexOf(" ") == -1)
+            {
+                Command = Data.ToUpper();
+                Parameters = String.Empty;
+            }
+            else
+            {
+                Command = Data.Substring(0, Data.IndexOf(" ")).ToUpper();
+                Parameters = Data.Substring(Data.IndexOf(" ") + 1);
+            }
+
+            if (String.IsNullOrWhiteSpace(Command))
+            {
+                VcClient.Send("", true);
+            }
+            else if (CommandDictionary.ContainsKey(Command))
+            {
+                string Response = CommandDictionary[Command].UserFunction(Parameters);
+                VcClient.Send(Response, true);
+            }
+            else
+            {
+                VcClient.Send("Bad or incomplete command", true);
+            }
         }
 
-        // This is the code for the server running as a thread.   Wait for connection is blocking and will halt
-        // Code execution until something connects.   it also needs to be restarted after it runs.
-        // Putting it in a thread will stop it from blocking our program, and the loop makes sure it will
-        // get re-triggered every time so that multiple clients can connect and reconnect as needed
-        private object ThreadCode(object o)
+        private static string HelpHandler(string Params)
         {
-            bool clientConnected = false;
-            while (RunThread)
+            string R = String.Empty;
+
+            int LongestCommand = CommandDictionary.Keys.Aggregate("", (Max, Current) => Max.Length > Current.Length ? Max : Current).Length;
+            IEnumerable<string> Ordered = CommandDictionary.Keys.OrderBy(a => a);
+
+            R += "Virtual Console for " + RoomId + " Help\x0A\x0D";
+            R += "------------------------------------------\x0A\x0D\x0A\x0D";
+            foreach (string C in Ordered)
             {
-                if (myServer.NumberOfClientsConnected < 5)  // If we are full,  the stop allowing more connections
+                R += String.Format("{0}{1}\x0A\x0D", C.PadRight(LongestCommand + 10), CommandDictionary[C].UserHelp);
+            }
+
+            return R;
+        }
+
+        private static void VcClient_OnConnection(object sender, ConnectedEventArgs e)
+        {
+            if (e.Connected == false)
+            {
+                int Id = TcpClients.Where(x => x.Value == sender).Select(x => x.Key).FirstOrDefault();
+                TcpClients.TryRemove(Id, out VirtualConsoleClient C);
+            }
+        }
+
+        private static void CrestronEnvironment_ProgramStatusEventHandler(eProgramStatusEventType programEventType)
+        {
+            if (programEventType == eProgramStatusEventType.Stopping)
+            {
+                Stop();
+            }
+        }
+
+        private class CwsUnknownRequestProcessor : IHttpCwsHandler
+        {
+            public void ProcessRequest(HttpCwsContext Context)
+            {
+                Context.Response.Write("Unknown Request", true);
+            }
+        }
+
+        private class CwsRequestProcessor : IHttpCwsHandler
+        {
+            public void ProcessRequest(HttpCwsContext Context)
+            {
+                try
                 {
-                    clientConnected = false;
+                    dynamic JRoot;
+                    if (Context.Request.HttpMethod == "GET")
+                    {
+                        JRoot = new JObject();
+                        JRoot.active = Active;
+                        Context.Response.Write(JsonConvert.SerializeObject(JRoot), true);
+                    }
+                    else if (Context.Request.HttpMethod == "PUT")
+                    {
+                        Stream S = Context.Request.InputStream;
+                        string Rx = String.Empty;
+                        byte[] StreamBuf = new byte[1024];
+                        while (S.Read(StreamBuf, 0, 1024) > 0)
+                        {
+                            Rx += Encoding.ASCII.GetString(StreamBuf);
+                        }
+
+                        JRoot = JObject.Parse(Rx);
+                        if (JRoot["active"] != null)
+                        {
+                            if (bool.TryParse(JRoot["active"].ToString(), out bool NewVal))
+                            {
+                                if (NewVal != Active)
+                                {
+                                    if (NewVal) { Start(TcpPort); }
+                                    else { Stop(); }
+                                }
+                            }
+                        }
+
+                        JRoot = new JObject();
+                        JRoot.active = Active;
+                        Context.Response.Write(JsonConvert.SerializeObject(JRoot), true);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    clientConnected = true;
-                }
-                if (!clientConnected)
-                {
-                    myServer.WaitForConnection(); // This is a blocking method that will wait for a connection
+                    ErrorLog.Exception("Error with VirtualConsole CWS", ex);
                 }
             }
-            myServer.DisconnectAll();  // WE are shutting down kick them all off
-            return false;
         }
     }
 }

@@ -131,12 +131,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LogFileWriter.cs" />
+    <Compile Include="Masters2021.cs" />
     <Compile Include="TCPClientHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VirtualConsole.cs" />
+    <Compile Include="VirtualConsoleClient.cs" />
+    <Compile Include="VirtualConsoleCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="names.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Crestron.SimplSharp.SDK.Library.2.14.134\build\Crestron.SimplSharp.SDK.Library.targets" Condition="Exists('..\packages\Crestron.SimplSharp.SDK.Library.2.14.134\build\Crestron.SimplSharp.SDK.Library.targets')" />
