@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Crestron.SimplSharp;
-
-namespace MastersHelperLibrary
+﻿namespace MastersHelperLibrary
 {
     public delegate string VirtualConsoleCmdFunction(string CmdParameters);
 
-    class VirtualConsoleCommand
+    internal class VirtualConsoleCommand
     {
         public string UserCmdName { get; set; }
         public string UserHelp { get; set; }

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace MastersHelperLibrary
 {
@@ -35,6 +32,7 @@ namespace MastersHelperLibrary
         private string RoomId;
 
         private string RxBuffer;
+
         /// <summary>
         /// Raised when data is received from Client
         /// </summary>
@@ -152,12 +150,10 @@ namespace MastersHelperLibrary
                     }
                     catch (Exception)
                     {
-
                     }
                 }
             }
             catch { }
-
 
             if (Client.Connected == false)
             {

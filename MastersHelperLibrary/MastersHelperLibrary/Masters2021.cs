@@ -1,5 +1,4 @@
 ﻿using Crestron.SimplSharp.CrestronIO;                   // For FileReadWrite
-using System;
 
 namespace MastersHelperLibrary
 {
@@ -10,7 +9,7 @@ namespace MastersHelperLibrary
             //string FileName = @"\nvram\names.txt";  // DO NOT USE NVRAM It's for backwards compatibility only.
             string FileName = Directory.GetApplicationRootDirectory() + "/user/names.txt";
 
-            if(!File.Exists(FileName))  // If file does not exist
+            if (!File.Exists(FileName))  // If file does not exist
 
             {
                 string[] names = new string[10]; // Create an array
@@ -40,6 +39,5 @@ namespace MastersHelperLibrary
                 myStream.Dispose();
             }
         }
-
     }
 }

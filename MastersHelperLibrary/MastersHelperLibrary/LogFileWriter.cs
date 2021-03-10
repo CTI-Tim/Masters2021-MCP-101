@@ -92,6 +92,5 @@ namespace MastersHelperLibrary
             myStream.Close();
             myStream.Dispose();
         }
-
     }
 }
