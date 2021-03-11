@@ -1,18 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Crestron.SimplSharp;
+using Crestron.SimplSharp.CrestronIO;
+using Crestron.SimplSharp.WebScripting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Crestron.SimplSharp;
-using Crestron.SimplSharp.WebScripting;
-using Crestron.SimplSharpPro;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using Crestron.SimplSharp.CrestronIO;
 
 namespace MastersHelperLibrary
 {
@@ -25,6 +22,7 @@ namespace MastersHelperLibrary
         private static ConcurrentDictionary<int, VirtualConsoleClient> TcpClients = new ConcurrentDictionary<int, VirtualConsoleClient>();
         private static Thread ServerThread;
         private static string RoomId = InitialParametersClass.RoomId;
+
         //private static string ProcType = InitialParametersClass.ControllerPromptName;
         private static HttpCwsServer CwsServer;
 
@@ -33,8 +31,6 @@ namespace MastersHelperLibrary
         static VirtualConsole()
         {
             CrestronEnvironment.ProgramStatusEventHandler += CrestronEnvironment_ProgramStatusEventHandler;
-
-
 
             Thread T = new Thread(() =>
             {
@@ -56,7 +52,6 @@ namespace MastersHelperLibrary
                     CwsServer.ReceivedRequestEvent += CwsServer_ReceivedRequestEvent;
 
                     CwsServer.Register();
-
                 }
                 catch (Exception ex)
                 {
@@ -89,8 +84,6 @@ namespace MastersHelperLibrary
         public static bool Start(int Port)
         {
             bool Success = false;
-
-
 
             TcpPort = Port;
             if (TcpServer != null)
@@ -131,7 +124,6 @@ namespace MastersHelperLibrary
                         {
                             break;
                         }
-
                     }
                 });
                 ServerThread.Start();

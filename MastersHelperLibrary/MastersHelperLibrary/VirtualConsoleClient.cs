@@ -83,7 +83,7 @@ namespace MastersHelperLibrary
         }
 
         /// <summary>
-        /// Sends messsge to VirtualConsoleClient and optionally adds prompt
+        /// Sends message to VirtualConsoleClient and optionally adds prompt
         /// </summary>
         /// <param name="Message">Message to send</param>
         /// <param name="Final">If true, adds console prompt</param>
