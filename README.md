@@ -1,4 +1,4 @@
-﻿<img src="https://img.shields.io/badge/Language-C Sharp-blue"><img src="https://img.shields.io/badge/Platform-Crestron-blue"><img src="https://img.shields.io/badge/Masters- 2021-blue">
+﻿<img src="https://img.shields.io/badge/Language-C Sharp-blue"> <img src="https://img.shields.io/badge/Platform-Crestron-blue"> <img src="https://img.shields.io/badge/Masters- 2021-blue">
 
 # Masters 2021 MCP-101 Helper Library 
 
