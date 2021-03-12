@@ -1,7 +1,6 @@
-﻿# Masters 2021 MCP-101 Helper Library 
-<img src="https://img.shields.io/badge/Language-C Sharp-blue"><img src="https://img.shields.io/badge/Platform-Crestron-blue"><img src="https://img.shields.io/badge/Masters- 2021-blue">
+﻿<img src="https://img.shields.io/badge/Language-C Sharp-blue"><img src="https://img.shields.io/badge/Platform-Crestron-blue"><img src="https://img.shields.io/badge/Masters- 2021-blue">
 
-
+# Masters 2021 MCP-101 Helper Library 
 
  The Library is released for the Masters 2021  C# for Crestron MCP-101, 201, 301 class.  Assorted files for the class and to help the student are also included.    A compiled version of the library is included as a DLL as well for ease of use by the students in class. 
 
@@ -51,7 +50,7 @@ myClient = new TCPClientHelper("127.0.0.1", 55555);
 myClient.tcpHelperEvent += MyClient_tcpHelperEvent;
 ```
 
-The event has arguments that will contain information.   RX is the last packet recieved by the client, Message contains what kind of event was thrown as well as Connected boolean and a status integer.
+The event has arguments that will contain information.   RX is the last packet received by the client, Message contains what kind of event was thrown as well as Connected Boolean and a status integer.
 
 to Send text to the connected device simply send a string to the myClient.TX property.
 
@@ -68,7 +67,7 @@ The path to the log file needs to be specified on the LogPath property.    The p
 ```c#
 myLog.LogPath = myLog.UserPath + "logfilename.txt";
 ```
-The ProgramPath and UserPath read only properties will have the seperator already at the end and is not needed to be added by the programmer.
+The ProgramPath and UserPath read only properties will have the separator already at the end and is not needed to be added by the programmer.
 
 Writing a line to the log by calling the WriteLog() Method. It accepts a string and will prepend the date and time stamp to the line before it is written. 
 
