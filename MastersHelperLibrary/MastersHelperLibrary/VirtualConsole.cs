@@ -28,6 +28,11 @@ namespace MastersHelperLibrary
 
         private static Dictionary<string, VirtualConsoleCommand> CommandDictionary = new Dictionary<string, VirtualConsoleCommand>();
 
+        /// <summary>
+        /// This Class is made Static to ensure it is available in all classes and locations inside the namespace.
+        /// Therefore it does not need to be instantiated.   Simply start using it.
+        /// for example, to Start the VirtualConsole,  you just use the Start Method.
+        /// </summary>
         static VirtualConsole()
         {
             CrestronEnvironment.ProgramStatusEventHandler += CrestronEnvironment_ProgramStatusEventHandler;
@@ -77,9 +82,11 @@ namespace MastersHelperLibrary
         }
 
         /// <summary>
-        /// Starts the VirtualConsole server
+        /// Starts the VirtualConsole server on the port specified.  Be sure the port you select
+        /// has had it's port opened up for use on the Virtual Control hose Operating system firewall.
+        /// Your virtual  console server will not function without the port used being opened.
         /// </summary>
-        /// <param name="Port">TCP port to listen on</param>
+        /// <param name="Port">0-65535d TCP port to listen on</param>
         /// <returns>Returns true is successful</returns>
         public static bool Start(int Port)
         {
@@ -132,7 +139,7 @@ namespace MastersHelperLibrary
         }
 
         /// <summary>
-        /// Stops the VirtualConsole server and disconects all clients
+        /// Stops the VirtualConsole server and disconnects all clients
         /// </summary>
         public static void Stop()
         {
@@ -150,7 +157,8 @@ namespace MastersHelperLibrary
         }
 
         /// <summary>
-        /// Sends a message to all connected VirtualConsole clients and adds the console prompt
+        /// Sends a single message line to all connected VirtualConsole clients and adds the console prompt
+        /// you can use string.format() inside to send variables in a formatted message
         /// </summary>
         /// <param name="Message">Message to send</param>
         public static void Send(string Message)
@@ -159,7 +167,8 @@ namespace MastersHelperLibrary
         }
 
         /// <summary>
-        /// Sends a message to all connected VirtualConsole clients and optionally adds the console prompt
+        /// Sends a message to all connected VirtualConsole clients and optionally adds the console prompt.  if you are sending
+        /// multiple lines  have the first few set to false, and the last line to be sent set to true.
         /// </summary>
         /// <param name="Message">Messsage to send</param>
         /// <param name="Final">If true, adds the console prompt</param>
@@ -176,6 +185,7 @@ namespace MastersHelperLibrary
 
         /// <summary>
         /// Registers a user command with VirtualConsole.  Callback function must accept a string and return a string.
+        /// String sent to the method will be any text sent after the console command.
         /// </summary>
         /// <param name="UserFunction">Callback method to be invoked when the</param>
         /// <param name="UserCmdName">Name of the UserCommand to be registered as a string. NO SPACES</param>

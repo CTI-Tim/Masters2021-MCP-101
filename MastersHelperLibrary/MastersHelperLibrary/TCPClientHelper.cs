@@ -5,6 +5,11 @@ using System;
 
 namespace MastersHelperLibrary
 {
+    /// <summary>
+    /// This Class simplifies communication to a TCP/IP device or server as a client.
+    /// It creates a worker thread for you and automates almost all features needed for communication
+    /// to a device over  the network.
+    /// </summary>
     public class TCPClientHelper
     {
         // Private Containers and Variables
@@ -17,7 +22,7 @@ namespace MastersHelperLibrary
         private int port;
         private CrestronQueue txQueue;
 
-        public event EventHandler<TCPClientHelperEventArgs> tcpHelperEvent;
+        public event EventHandler<TCPClientHelperEventArgs> tcpHelperEvent; 
 
         // Public Properties
 
@@ -75,6 +80,7 @@ namespace MastersHelperLibrary
 
         /// <summary>
         /// Creates a TCPClient Object ready to connect to IP address at Port number.
+        /// This will not automatically connect.  you need to use the methods for connection control.
         ///
         /// </summary>
         /// <param name="IpAddress">IP address of the Target server or device</param>
