@@ -1,7 +1,7 @@
 # Masters 2021 MCP-101 Helper Library 
 <img src="https://img.shields.io/badge/Language-C Sharp-blue"><img src="https://img.shields.io/badge/Platform-Crestron-blue"><img src="https://img.shields.io/badge/Masters- 2021-blue">
 
- The Library is released for the Masters 2021  C# for Crestron MCP-101, 201, 301 class.  Assorted files for the class and to help the student are also included.    A compiled version of the library is included as a dll as well for ease of use by the students in class.
+ The Library is released for the Masters 2021  C# for Crestron MCP-101, 201, 301 class.  Assorted files for the class and to help the student are also included.    A compiled version of the library is included as a DLL as well for ease of use by the students in class. 
 
  **NOTE:** These are simplified Libraries for students to use to learn concepts from.  They are not 100% complete in regards to error testing and error recovery.  It is left up to the students to complete the work on their own when they progress to that level.
 
@@ -49,3 +49,51 @@ myClient.tcpHelperEvent += MyClient_tcpHelperEvent;
 The event has arguments that will contain information.   RX is the last packet recieved by the client, Message contains what kind of event was thrown as well as Connected boolean and a status integer.
 
 to Send text to the connected device simply send a string to the myClient.TX property.
+
+### LogFileWriter
+
+This is a public class so you instantiate it like any other. it takes no arguments for the default constructor.
+```C#
+myLog = new LogFileWriter();
+```
+The path to the log file needs to be specified on the LogPath property.    The processors path to the program and the User Folder are available in the ProgramPath and UserPath properties.
+
+```c#
+myLog.LogPath = myLog.UserPath + "logfilename.txt";
+```
+The ProgramPath and UserPath read only properties will have the seperator already at the end and is not needed to be added by the programmer.
+
+Writing a line to the log by calling the WriteLog() Method. It accepts a string and will prepend the date and time stamp to the line before it is written. 
+
+```c#
+myLog.WriteLog("Program has started");
+myLog.WriteLog(string.Format(" Variable a={0}",a));
+```
+
+### VirtualConsole
+
+This is a Static class and does not have to be instantiated.   The Virtual Console can be started easily by calling the start method.
+**NOTE:** you MUST open the port you intend to use when using this class with Crestron Virtual Control.   Failure to open the port desired in the Linux host OS will cause the VirtualConstrol to not function.
+
+```C#
+VirtualConsole.Start(45545);
+```
+
+you can add in custom console commands to trigger methods in your program.   The method you call MUST accept a string and return a string.
+```C#
+VirtualConsole.AddNewConsoleCommand(TestFunc, "Test", "This should respond with a message");
+
+        private string TestFunc(string s)
+        {
+            VirtualConsole.Send("RESPONSE MESSAGE");
+            return "test";
+        }
+```
+
+Sending a message to the virtual console has the method Send that as an overload.   One sends a single line the other can be used to send multiple lines.  Setting the second property to True will have a command prompt right after the line.  setting the property to false will not.
+
+```c#
+VirtualConsole.Send("RESPONSE MESSAGE");
+VirtualConsole.Send("Welcome to Program Information", false);
+VirtualConsole.Send("------------------------------",true);
+```
