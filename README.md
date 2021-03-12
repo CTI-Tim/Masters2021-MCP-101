@@ -44,7 +44,6 @@ This class is a public class and needs to be instantiated.  When you do you will
 myClient = new TCPClientHelper("127.0.0.1", 55555);
 myClient.tcpHelperEvent += MyClient_tcpHelperEvent;
 ```
-<details><summary><b>Event Arguments</b></summary>
 
 The event has arguments that will contain information.   RX is the last packet recieved by the client, Message contains what kind of event was thrown as well as Connected boolean and a status integer.
 
