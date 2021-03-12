@@ -1,6 +1,7 @@
 ﻿# Masters 2021 MCP-101 Helper Library 
 <center>
-<img src="https://img.shields.io/badge/Language-C Sharp-blue">  <img src="https://img.shields.io/badge/Platform-Crestron-blue">  <img src="https://img.shields.io/badge/Masters- 2021-blue"></center>
+<img src="https://img.shields.io/badge/Language-C Sharp-blue"><img src="https://img.shields.io/badge/Platform-Crestron-blue"><img src="https://img.shields.io/badge/Masters- 2021-blue"></center>
+
 
  The Library is released for the Masters 2021  C# for Crestron MCP-101, 201, 301 class.  Assorted files for the class and to help the student are also included.    A compiled version of the library is included as a DLL as well for ease of use by the students in class. 
 
