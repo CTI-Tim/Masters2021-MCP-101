@@ -10,9 +10,24 @@ Complete Simplified MCP101 C# class code as an example will be provided here aft
 
 #### **TCPClientHelper**
 
-This class simplifies making a TCP/IP connection to a server or device. It automatically creates a worker thread and utilizes a serial queue to emulate a serial port to the programmer.  You send your command to  the TX property and if connected to the device or service it will send that string.
+This class simplifies making a TCP/IP connection to a server or device. It automatically creates a worker thread and utilizes a serial queue to emulate a serial port to the programmer.  
 
-When a string comes in from the remote device it will raise an event with that information as well as update the RX property with the string that was received.  Connect and Disconnect methods allow the programmer to have control over the connection.  Limited status information is available as well as limited errors as to why a connection failed or disconnected.  The Class is more of an example on how to use the TCP Client method and leveraging a thread to make the code non blocking.  The programmer is encouraged to expand its capabilities and add in the proper error checking to make it more robust.
+You send your string that you want sent to the connection  to  the TX property and if connected to the device or service it will send that string. If not connects the string is simply discarded.
+
+When a string comes in from the remote device it will raise an event with that information as well as update the RX property with the string that was received status changes like connect and disconnect will send STATUS and data incoming will send RX in the e.Message property.  For Example:
+
+```C#
+if(e.Message == "STATUS")
+    bool Connected = e.Connected;
+else if(e.Message = "RX")
+    string data = e.RX;
+```
+
+
+
+ Connect() and Disconnect() methods allow the programmer to have control over the connection.  Limited status information is available as well as limited errors as to why a connection failed or disconnected.  
+
+The Class is more of an example on how to use the TCP Client method and leveraging a thread to make the code non blocking.  The programmer is encouraged to expand its capabilities and add in the proper error checking to make it more robust.
 
 #### **LogFileWriter**
 
