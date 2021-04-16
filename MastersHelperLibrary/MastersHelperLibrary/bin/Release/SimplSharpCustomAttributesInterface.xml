@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SimplSharpCustomAttributesInterface</name>
+    </assembly>
+    <members>
+        <member name="T:Crestron.SandboxCustomAttributes.BlackListOptions">
+            <summary>
+            BlackList Options 
+            </summary>
+        </member>
+        <member name="F:Crestron.SandboxCustomAttributes.BlackListOptions.Unrestrict">
+            <summary>
+            Unrestrict (Default)
+            </summary>
+        </member>
+        <member name="F:Crestron.SandboxCustomAttributes.BlackListOptions.Restrict">
+            <summary>
+            Restrict For Both SimplSharp and SimplSharpPro
+            </summary>
+        </member>
+        <member name="F:Crestron.SandboxCustomAttributes.BlackListOptions.RestrictForSimplSharpOnly">
+            <summary>
+            Restrict For SimplSharp Only
+            </summary>
+        </member>
+        <member name="F:Crestron.SandboxCustomAttributes.BlackListOptions.RestrictForSimplSharpProOnly">
+            <summary>
+            Restrict For SimplSharpPro Only
+            </summary>
+        </member>
+        <member name="T:Crestron.SandboxCustomAttributes.AssemblyBlackListAttribute">
+            <summary>
+            BlackList attribute that can be attached to Assembly.
+            ex: [assembly: AssemblyBlackListAttribute(BlackListOptions.RestrictForSimplSharpProOnly )]
+            </summary>
+        </member>
+        <member name="M:Crestron.SandboxCustomAttributes.AssemblyBlackListAttribute.#ctor(Crestron.SandboxCustomAttributes.BlackListOptions)">
+            <summary>
+            BlackList attribute that can be attached to Assembly.
+            </summary>
+            <param name="option">BlackList Options</param>
+        </member>
+        <member name="P:Crestron.SandboxCustomAttributes.AssemblyBlackListAttribute.BlackListAttributes">
+            <summary>
+            BlackList attribute that can be attached to Assembly.
+            </summary>
+        </member>
+        <member name="T:Crestron.SandboxCustomAttributes.ConstructorBlackListAttribute">
+            <summary>
+            BlackList attribute that can be attached to Constructor.
+            ex: [assembly: ConstructorBlackListAttribute(BlackListOptions.RestrictForSimplSharpProOnly )]
+            </summary>
+        </member>
+        <member name="M:Crestron.SandboxCustomAttributes.ConstructorBlackListAttribute.#ctor(Crestron.SandboxCustomAttributes.BlackListOptions)">
+            <summary>
+            BlackList attribute that can  be attached to Constructor.
+            </summary>
+            <param name="option">BlackList Options</param>
+        </member>
+        <member name="P:Crestron.SandboxCustomAttributes.ConstructorBlackListAttribute.BlackListAttributes">
+            <summary>
+            BlackList attribute that can be attached to Constructor.
+            </summary>
+        </member>
+        <member name="T:Crestron.SandboxCustomAttributes.MethodbaseBlackListAttribute">
+            <summary>
+            BlackList attribute that can  be attached to Methodbase.
+            ex: [assembly: MethodbaseBlackListAttribute(BlackListOptions.RestrictForSimplSharpProOnly )]
+            </summary>
+        </member>
+        <member name="M:Crestron.SandboxCustomAttributes.MethodbaseBlackListAttribute.#ctor(Crestron.SandboxCustomAttributes.BlackListOptions)">
+            <summary>
+            BlackList attribute that can  be attached to Methodbase.
+            </summary>
+            <param name="option">BlackList Options</param>
+        </member>
+        <member name="P:Crestron.SandboxCustomAttributes.MethodbaseBlackListAttribute.BlackListAttributes">
+            <summary>
+            BlackList attribute that can  be attached to Methodbase.
+            </summary>
+        </member>
+        <member name="T:Crestron.SandboxCustomAttributes.ClassBlackListAttribute">
+            <summary>
+            BlackList attribute that can  be attached to class.
+            ex: [assembly: ClassBlackListAttribute(BlackListOptions.RestrictForSimplSharpProOnly )]
+            </summary>
+        </member>
+        <member name="M:Crestron.SandboxCustomAttributes.ClassBlackListAttribute.#ctor(Crestron.SandboxCustomAttributes.BlackListOptions)">
+            <summary>
+            BlackList attribute that can  be attached to class.
+            </summary>
+            <param name="option">BlackList Options</param>
+        </member>
+        <member name="P:Crestron.SandboxCustomAttributes.ClassBlackListAttribute.BlackListAttributes">
+            <summary>
+            BlackList attribute that can  be attached to class.
+            </summary>
+        </member>
+        <member name="T:Crestron.SandboxCustomAttributes.BindingFlagsBlackListAttribute">
+            <summary>
+            BlackList attribute that can be attached to Assembly to restrict BindingFlags.
+            The provided flags will be restricted.
+            ex: [assembly: BindingFlagsBlackListAttribute(BindingFlags.NonPublic | BindingFlags.Static)]
+            </summary>
+        </member>
+        <member name="M:Crestron.SandboxCustomAttributes.BindingFlagsBlackListAttribute.#ctor(System.Reflection.BindingFlags)">
+            <summary>
+            BlackList attribute that can be attached to Assembly to restrict BindingFlags.
+            </summary>
+            <param name="option">Binding Flags</param>
+        </member>
+        <member name="P:Crestron.SandboxCustomAttributes.BindingFlagsBlackListAttribute.BlackListAttributes">
+            <summary>
+            BlackList attribute that can be attached to Assembly to restrict BindingFlags.
+            </summary>
+        </member>
+        <member name="T:Crestron.SandboxCustomAttributes.AssemblyInfoAttribute">
+            <summary>
+            Class exposed for the plugin validation
+            </summary>
+            <remarks> The purpose of the custom attribute is to provide a .Net data structure that the plugin can use to write a key to an assembly before 
+            signing in order to identify the level of security applied to the assembly.  This will allow us to backfill sandbox holes for CLZ’s that have been compiled 
+            and signed with a version of the plugin that had security holes.  </remarks>
+        </member>
+    </members>
+</doc>

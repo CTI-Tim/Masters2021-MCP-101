@@ -151,6 +151,9 @@ namespace MastersHelperLibrary
                             //foreach (int i in payload)
                             //    payload[i] = Convert.ToByte(temp[i]);                    // Convert each character into it's byte representation and load it to our array.
 
+                            // NOTE: If you need to go outside of standard characters this MUST be modified and use a raw Byte conversion above.
+                            //       You will have problems with bytes outside of printable characters.
+
                             byte[] payload = System.Text.Encoding.UTF8.GetBytes(temp); // This is another way of doign the above but in a single line, Convert the string to Byte array using UTF8... Why Not ASCII?   ASCII stops at 127 UTF8 stops at 255
 
                             myClient.SendData(payload, payload.Length);                  // Send it out to the TCP connection that wants an array of bytes.
