@@ -4,7 +4,9 @@
 
  The Library is released for the Masters 2021  C# for Crestron MCP-101, 201, 301 class.  Assorted files for the class and to help the student are also included.    A compiled version of the library is included as a DLL as well for ease of use by the students in class. 
 
- **IMPORTANT NOTE:** These are <u>simplified</u> classes in this library for students to use to learn concepts from.  They are not 100% complete in regards to error testing and error recovery.  It is left up to the students to complete the work and finish the C# code in the classes  on their own when they progress to that level.   Do not expect these to be ready to use in a production environment.  There are documents included for the student for the class as well as the class Xpanel used for the exercises included in this repository.
+ **IMPORTANT NOTE:** These are **<u>simplified</u>** classes in this library for students to use to learn concepts from.  They are not 100% complete in regards to error testing and error recovery. For example the TCP Helper needs to be expanded and modified to handle different string encodings based on the target data. It is left up to the students to complete the work and finish the C# code in the classes  on their own when they progress to that level.   Do not expect these to be ready to use in a production environment.  
+
+Also, there are documents included for the student for the class as well as the class Xpanel used for the exercises included in this repository.
 
 Complete Simplified MCP101 C# class code as an example will be provided here after masters is complete.
 
@@ -14,7 +16,7 @@ Please take note how this library  has both documentation, and comments in the c
 
 This class simplifies making a TCP/IP connection to a server or device. It automatically creates a worker thread and utilizes a serial queue to emulate a serial port to the programmer.    
 
-**NOTE:** This uses Encoding so it is limited to 127 as the highest character.   It is up to the student to modify it for use to the full 0-255 byte range by investigating the code and the hints inside the code.
+**NOTE:** This uses Encoding so it is limited to 127 as the highest character.   It is up to the student to modify it for use to the full 0-255 byte range by investigating the code and the hints inside the code comments.  String encoding has it's own challenges inside of C#, so be aware of this and learn more about string encoding and byte conversion.
 
 You send your string that you want sent to the connection  to  the TX property and if connected to the device or service it will send that string. If not connects the string is simply discarded.
 
