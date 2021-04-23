@@ -12,7 +12,9 @@ Please take note how this library  has both documentation, and comments in the c
 
 #### **TCPClientHelper**
 
-This class simplifies making a TCP/IP connection to a server or device. It automatically creates a worker thread and utilizes a serial queue to emulate a serial port to the programmer.  
+This class simplifies making a TCP/IP connection to a server or device. It automatically creates a worker thread and utilizes a serial queue to emulate a serial port to the programmer.    
+
+**NOTE:** This uses Encoding so it is limited to 127 as the highest character.   It is up to the student to modify it for use to the full 0-255 byte range by investigating the code and the hints inside the code.
 
 You send your string that you want sent to the connection  to  the TX property and if connected to the device or service it will send that string. If not connects the string is simply discarded.
 

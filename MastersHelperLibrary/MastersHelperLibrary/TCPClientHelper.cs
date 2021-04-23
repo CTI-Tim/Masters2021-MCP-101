@@ -146,15 +146,13 @@ namespace MastersHelperLibrary
                         {
                             string temp = txQueue.Dequeue().ToString();                  // Get our TX data out of the Queue
 
-                            //byte[] payload = new byte[temp.Length];                      // Create a local array the size of our Payload 
+                            //byte[] payload = GetBytes(temp);                      // Call the method below for RAW bytes
+                            
 
-                            //foreach (int i in payload)
-                            //    payload[i] = Convert.ToByte(temp[i]);                    // Convert each character into it's byte representation and load it to our array.
-
-                            // NOTE: If you need to go outside of standard characters this MUST be modified and use a raw Byte conversion above.
+                            // NOTE: If you need to go outside of standard characters this MUST be modified and use a raw Byte conversion methods.
                             //       You will have problems with bytes outside of printable characters.
 
-                            byte[] payload = System.Text.Encoding.UTF8.GetBytes(temp); // This is another way of doign the above but in a single line, Convert the string to Byte array using UTF8... Why Not ASCII?   ASCII stops at 127 UTF8 stops at 255
+                            byte[] payload = System.Text.Encoding.UTF8.GetBytes(temp); // Convert the string to Byte array using UTF8... Why Not ASCII?  Note this fails after chr127
 
                             myClient.SendData(payload, payload.Length);                  // Send it out to the TCP connection that wants an array of bytes.
                         }
@@ -163,7 +161,11 @@ namespace MastersHelperLibrary
                         if (myClient.DataAvailable)  // Do we have data to read?
                         {
                             myClient.ReceiveData(); // Extract the data into out IncomingDataBuffer
-                            string Buffer = System.Text.Encoding.UTF8.GetString(myClient.IncomingDataBuffer); // we get bytes, time to make it a string,  once again we need to convert to UTF8 and not ASCII so we get everything from 0 to 255
+
+                            string Buffer = System.Text.Encoding.UTF8.GetString(myClient.IncomingDataBuffer); // we get bytes, time to make it a string,  Encoding may change bytes so this will not work for beyond 127
+
+                            //string Buffer = GetString(myClient.IncomingDataBuffer);  // this will work for RAW bytes 
+                            
                             lastRX = Buffer.TrimEnd('\x00'); // make a copy in case the user wants to look at the last packet received, get rid of any trailing \x00's
                             OnRaiseEvent(new TCPClientHelperEventArgs("RX")); // Call the Event Handler
                         }
@@ -197,6 +199,29 @@ namespace MastersHelperLibrary
                 raiseEvent(this, e); // trigger the event
             }
         }
+        /// <summary>
+        /// Convert a string to bytes
+        /// </summary>
+        /// <param name="str">String to convert</param>
+        /// <returns>Byte Array</returns>
+        private byte[] GetBytes(string str)
+        {
+            byte[] bytes = new byte[str.Length * sizeof(char)];
+            System.Buffer.BlockCopy(str.ToCharArray(), 0, bytes, 0, bytes.Length);
+            return bytes;
+        }
+
+        // Do NOT use on arbitrary bytes; only use on GetBytes's output on the SAME system
+        private string GetString(byte[] bytes)
+        {
+            char[] chars = new char[bytes.Length / sizeof(char)];
+            System.Buffer.BlockCopy(bytes, 0, chars, 0, bytes.Length);
+            return new string(chars);
+        }
+
+
+
+
     }
 
     // This is a separate class to define the data that will be sent to our program from the Event.
