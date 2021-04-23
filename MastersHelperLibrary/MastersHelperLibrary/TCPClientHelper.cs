@@ -147,12 +147,14 @@ namespace MastersHelperLibrary
                             string temp = txQueue.Dequeue().ToString();                  // Get our TX data out of the Queue
 
                             //byte[] payload = GetBytes(temp);                      // Call the method below for RAW bytes
-                            
+
 
                             // NOTE: If you need to go outside of standard characters this MUST be modified and use a raw Byte conversion methods.
                             //       You will have problems with bytes outside of printable characters.
 
-                            byte[] payload = System.Text.Encoding.UTF8.GetBytes(temp); // Convert the string to Byte array using UTF8... Why Not ASCII?  Note this fails after chr127
+                            //byte[] payload = System.Text.Encoding.UTF8.GetBytes(temp); // Convert the string to Byte array using UTF8... Why Not ASCII?  Note this fails after chr127 because it uses codepage 0
+
+                            byte[] payload = System.Text.Encoding.GetEncoding(1252).GetBytes(temp);  // Codepage 1252 just happens to preserve all 256 bytes  use this ALWAYS for device communication
 
                             myClient.SendData(payload, payload.Length);                  // Send it out to the TCP connection that wants an array of bytes.
                         }
@@ -162,7 +164,9 @@ namespace MastersHelperLibrary
                         {
                             myClient.ReceiveData(); // Extract the data into out IncomingDataBuffer
 
-                            string Buffer = System.Text.Encoding.UTF8.GetString(myClient.IncomingDataBuffer); // we get bytes, time to make it a string,  Encoding may change bytes so this will not work for beyond 127
+                            //string Buffer = System.Text.Encoding.UTF8.GetString(myClient.IncomingDataBuffer); // we get bytes, time to make it a string,  Encoding may change bytes so this will not work for beyond 127
+
+                            string Buffer = System.Text.Encoding.GetEncoding(1252).GetString(myClient.IncomingDataBuffer);  // This is using the codepage 1252 trick to get all 256 byte values
 
                             //string Buffer = GetString(myClient.IncomingDataBuffer);  // this will work for RAW bytes 
                             
