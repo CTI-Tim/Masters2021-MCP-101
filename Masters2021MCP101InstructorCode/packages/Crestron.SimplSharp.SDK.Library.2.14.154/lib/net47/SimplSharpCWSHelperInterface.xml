@@ -1,0 +1,1459 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SimplSharpCWSHelperInterface</name>
+    </assembly>
+    <members>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection">
+            <summary>
+            Provides a collection of routes for CWS routing.
+            <remarks>Manipulating the collection only affect the server's routing before Register method is called.</remarks>
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/> class.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection.GetReadLock">
+            <summary>
+                Provides an object for managing thread safety while you retrieve a route
+                from <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+            </summary>
+            <returns>
+                The object managing thread safety.
+            </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection.GetWriteLock">
+            <summary>
+                Provides an object for managing thread safety while you add/delete a route
+                in <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+            </summary>
+            <returns>
+                The object managing thread safety.
+            </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection.Clear">
+            <summary>
+            Removes all elements from the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection.Contains(Crestron.SimplSharp.WebScripting.HttpCwsRoute)">
+            <summary>
+            Determines whether the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/> contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.</param>
+            <returns>true if item is found in the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>; otherwise, false.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection.Remove(Crestron.SimplSharp.WebScripting.HttpCwsRoute)">
+             <summary>
+                 Removes the first occurrence of a specific <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRoute"/> from the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+             </summary>
+             <param name="item">The <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRoute"/> to remove from the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.</param>
+             <returns>
+                 true if item was successfully removed from the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>;
+                 otherwise, false. This method also returns false if item is not found in
+                 the original <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+            </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection.Add(Crestron.SimplSharp.WebScripting.HttpCwsRoute)">
+            <summary>
+                Adds an item to the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+            </summary>
+            <param name="item">The object to add to the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.</param>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection.GetEnumerator">
+            <summary>
+                Returns an enumerator that iterates through the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+            </summary>
+            <returns>Returns an enumerator that iterates through the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.</returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection.Count">
+             <summary>
+                 Gets the number of elements contained in the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+             </summary>
+             <returns>
+                 The number of elements contained in the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+            </returns>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsRoute">
+            <summary>
+            Implements default HttpCws request routing and handling
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRoute.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRoute"/> class, by using
+                the specified Name and URL pattern.
+            </summary>
+            <param name="url">The URL pattern for the route.</param>
+            <remarks>URL pattern cannot start with a '/' or '~' character and it cannot contain a '?' character.
+            It should not also start with the virtual folder the server is registered for,
+            i.e. {device}/Presets/{id}/Recall is correct while /API/{device}/Presets/{id}/Recall is not in both ways.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRoute.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRoute"/> class, by using
+            the specified Name and URL pattern. Specifying routeAurntication to true enables authentication
+            for this particular route.
+            </summary>
+            <param name="url">The URL pattern for the route.</param>
+            <param name="routeAuthentication">Specifies whether particular route needs to be authenticated or not.
+            Use this function only if particular route requires authentication. User will be prompted to enter 
+            login credentials if the route is not already authenticated. Passing "true" to this parameter enables this.
+            Otherwise, if route doesn't require authentication, pass false to this parameter 
+            or use the single parameter function by just specifiying route "url". This parameter is currently supported
+            only in 4-series.
+            </param>
+            <remarks>URL pattern cannot start with a '/' or '~' character and it cannot contain a '?' character.
+            It should not also start with the virtual folder the server is registered for,
+            i.e. {device}/Presets/{id}/Recall is correct while /API/{device}/Presets/{id}/Recall is not in both ways.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRoute.#ctor(System.String,Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRoute"/> class, by using
+                the specified Name, URL pattern, and default parameter values.
+            </summary>
+            <param name="url">The URL pattern for the route.</param>
+            <param name="defaults">The values to use for any parameters that are missing in the URL.</param>
+            <remarks>URL pattern cannot start with a '/' or '~' character and it cannot contain a '?' character.
+            It should not also start with the virtual folder the server is registered for,
+            i.e. {device}/Presets/{id}/Recall is correct while /API/{device}/Presets/{id}/Recall is not in both ways.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRoute.#ctor(System.String,Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary,Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRoute"/> class, by using
+                the specified Name, URL pattern, default parameter values, and constraints.
+            </summary>
+            <param name="url">The URL pattern for the route.</param>
+            <param name="defaults">The values to use for any parameters that are missing in the URL.</param>
+            <param name="constraints">A regular expressions that defines validity of values for a URL parameter.</param>
+            <remarks>URL pattern cannot start with a '/' or '~' character and it cannot contain a '?' character.
+            It should not also start with the virtual folder the server is registered for,
+            i.e. {device}/Presets/{id}/Recall is correct while /API/{device}/Presets/{id}/Recall is not in both ways.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRoute.#ctor(System.String,Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary,Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary,Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRoute"/> class, by using
+                the specified Name, URL pattern, default parameter values, constraints, and custom values.
+            </summary>
+            <param name="url">The URL pattern for the route.</param>
+            <param name="defaults">The values to use for any parameters that are missing in the URL.</param>
+            <param name="constraints">A regular expressions that defines validity of values for a URL parameter.</param>
+            <param name="dataTokens">
+               The custom values passed to the route handler where they can be used for processing the
+               request.
+            </param>
+            <remarks>URL pattern cannot start with a '/' or '~' character and it cannot contain a '?' character.
+            It should not also start with the virtual folder the server is registered for,
+            i.e. {device}/Presets/{id}/Recall is correct while /API/{device}/Presets/{id}/Recall is not in both ways.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRoute.#ctor(System.String,Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary,Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary,Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary,System.Boolean)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRoute"/> class, by using
+                the specified Name, URL pattern, default parameter values, constraints, and custom values.
+            </summary>
+            <param name="url">The URL pattern for the route.</param>
+            <param name="defaults">The values to use for any parameters that are missing in the URL.</param>
+            <param name="constraints">A regular expressions that defines validity of values for a URL parameter.</param>
+            <param name="dataTokens">
+               The custom values passed to the route handler where they can be used for processing the
+               request.
+            </param>
+            <param name="routeAuthentication">Specifies whether particular route needs to be authenticated or not. 
+            If route requires authentication, pass "true" to this parameter, else set "false".
+            Currently this feature is supported only in 4-series</param>
+            <remarks>URL pattern cannot start with a '/' or '~' character and it cannot contain a '?' character.
+            It should not also start with the virtual folder the server is registered for,
+            i.e. {device}/Presets/{id}/Recall is correct while /API/{device}/Presets/{id}/Recall is not in both ways.
+            </remarks>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRoute.Defaults">
+            <summary>
+            Gets or sets the values to use for any parameters that are missing in the URL.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRoute.Constraints">
+            <summary>
+               Gets or Sets the dictionary of regular expressions that defines validity of values for a URL parameter        
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRoute.DataTokens">
+            <summary>
+               Gets or Sets the dictionary of custom values passed to the route handler where they can be used for processing the
+               request.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRoute.Url">
+            <summary>
+            Gets the URL pattern for the route.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRoute.Name">
+            <summary>
+            Gets or sets the name identifying the route..
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRoute.RouteHandler">
+            <summary>
+               Gets or sets the object that processes requests for the route.
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteData">
+            <summary>
+            Encapsulates data about a route.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteData.#ctor(Crestron.WebScripting.HttpCwsApiRouteData)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteData"/> class.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteData.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteData"/> class.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteData.#ctor(Crestron.SimplSharp.WebScripting.HttpCwsRoute,Crestron.SimplSharp.WebScripting.IHttpCwsHandler)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteData"/> class with 
+                the route and route handler specified.
+            </summary>
+            <param name="route">An object that defines the route.</param>
+            <param name="handler">An object that processes the request.</param>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRouteData.GetRequiredString(System.String)">
+            <summary>
+                Retrieves the value with the specified identifier.
+            </summary>
+            <param name="valueName">The key of the value to retrieve.</param>
+            <returns>
+                The element in the <see cref="P:Crestron.SimplSharp.WebScripting.HttpCwsRouteData.Values"/> property by the key matching valueName.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">
+                A value does not exist or empty for valueName.
+            </exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRouteData.DataTokens">
+            <summary>
+                Gets a collection of custom values that are passed to the route handler but
+                are not used when CWS routing determination.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRouteData.RouteHandler">
+            <summary>
+                Gets or sets the object that processes a requested route.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRouteData.Route">
+            <summary>
+                Gets or sets the object that represents a route.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRouteData.Values">
+            <summary>
+                Gets a collection of URL parameter values for the route.
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary">
+            <summary>
+                Represents a case-insensitive collection of key/value pairs that is used
+                as the values, defaults, etc. for a route.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/> empty class.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.#ctor(System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/> from an existing dictionary.
+            </summary>
+            <param name="dictionary">Existing dictionary to initialize from.</param>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.Add(System.String,System.Object)">
+            <summary>
+                Adds the specified key and value to the dictionary.
+            </summary>
+            <param name="key">The key of the element to add.</param>
+            <param name="value">The value of the element to add. The value can be null for reference types.</param>
+            <exception cref="T:System.ArgumentNullException">
+                key is null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                An element with the same key already exists in the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.Clear">
+            <summary>
+                Removes all keys and values from the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.ContainsKey(System.String)">
+            <summary>
+                Determines whether the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>
+                contains the specified key.
+            </summary>
+            <param name="key">The key to locate in the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.</param>
+            <returns>
+                true if the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/> contains an
+                element with the specified key; otherwise, false.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                key is null.
+            </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.ContainsValue(System.Object)">
+            <summary>
+                Determines whether the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>
+                contains a specific value.
+            </summary>
+            <param name="value">
+                The value to locate in the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+                The value can be null for reference types.
+            </param>
+            <returns>
+                true if the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/> contains an
+                element with the specified value; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.GetEnumerator">
+            <summary>
+                Returns an enumerator that iterates through the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </summary>
+            <returns>
+                A <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.Enumerator structure
+                for the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.Remove(System.String)">
+            <summary>
+                Removes the value with the specified key from the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </summary>
+            <param name="key">The key of the element to remove.</param>
+            <returns>
+                true if the element is successfully found and removed; otherwise, false.
+                This method returns false if key is not found in the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                key is null.
+            </exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.TryGetValue(System.String,System.Object@)">
+            <summary>
+                Gets the value associated with the specified key.
+            </summary>
+            <param name="key">The key of the value to get.</param>
+            <param name="value">
+                When this method returns, contains the value associated with the specified
+                key, if the key is found; otherwise, the default value for the type of the
+                value parameter. This parameter is passed uninitialized.
+            </param>
+            <returns>
+                true if the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/> contains an
+                element with the specified key; otherwise, false.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                key is null.
+            </exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.Count">
+            <summary>
+                Gets the number of key/value pairs contained in the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </summary>
+            <returns>The number of key/value pairs contained in the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.</returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.Keys">
+            <summary>
+                Gets a collection containing the keys in the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </summary>
+            <returns>
+                A <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.KeyCollection containing
+                the keys in the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.Values">
+            <summary>
+                Gets a collection containing the values in the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </summary>
+            <returns>
+                A <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.ValueCollection containing
+                the values in the <see cref="T:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary"/>.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.CwsRouteValueDictionary.Item(System.String)">
+            <summary>
+                Gets or sets the value associated with the specified key.
+            </summary>
+            <param name="key">The key of the value to get or set.</param>
+            <returns>
+                The value associated with the specified key. If the specified key is not
+                found, a get operation throws a System.Collections.Generic.KeyNotFoundException,
+                and a set operation creates a new element with the specified key.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                key is null.
+            </exception>
+            <exception cref="T:System.Collections.Generic.KeyNotFoundException">
+                The property is retrieved and key does not exist in the collection.
+            </exception>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsResponse">
+            <summary>
+            Represents http-specific data of the response sent to the client by the server on current request
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.End">
+            <summary>
+            Finishes processing of the current request.
+            </summary>
+            <returns>Returns true if success.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.WriteFile(System.String,System.Boolean)">
+            <summary>
+            Writes the contents of the specified file directly to an HTTP response output
+            </summary>
+            <param name="filename">The name of the file to write to the HTTP output</param>
+            <param name="final">Flag indicating the final data transfer to the client (equivalent to End() method)</param>
+            <returns>true to successful transfer; otherwise, false.</returns>
+            <exception cref="T:System.InvalidOperationException">Response is written after the final data have been sent.</exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.Write(Crestron.SimplSharp.CrestronIO.Stream,System.Boolean)">
+            <summary>
+            Writes the contents of the specified stream directly to an HTTP response output
+            </summary>
+            <param name="s">The source data stream</param>
+            <param name="final">Flag indicating the final data transfer to the client (equivalent to End() method)</param>
+            <returns>true to successful transfer; otherwise, false.</returns>
+            <exception cref="T:System.InvalidOperationException">Response is written after the final data have been sent.</exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.Write(System.String,System.Boolean)">
+            <summary>
+            Writes a string to an HTTP response output stream.
+            </summary>
+            <param name="s">The string to write to the HTTP output stream</param>
+            <param name="final">Flag indicating the final data transfer to the client (equivalent to End() method)</param>
+            <returns>true to successful transfer; otherwise, false.</returns>
+            <exception cref="T:System.InvalidOperationException">Response is written after the final data have been sent.</exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.ClearHeaders">
+            <summary>
+            Clears all headers from the buffer stream.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Headers are cleared after the HTTP headers have been sent</exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.Clear">
+            <summary>
+            Clears all content output from the buffer stream.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.ClearContent">
+            <summary>
+            Clears all content output from the buffer stream.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.Flush">
+            <summary>
+            Sends all currently pending output (including headers) to the client.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.AppendHeader(System.String,System.String)">
+            <summary>
+            Adds an HTTP header to the output stream.
+            </summary>
+            <param name="name">Name of the header</param>
+            <param name="value">Values of the header</param>
+            <exception cref="T:System.InvalidOperationException">A header is appended after the HTTP headers have been sent</exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.AppendCookie(Crestron.SimplSharp.WebScripting.HttpCwsCookie)">
+            <summary>
+            Adds an HTTP cookie to the intrinsic cookie collection.
+            </summary>
+            <param name="cookie">The <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookie"/> to add to the output stream.</param>
+            <exception cref="T:System.InvalidOperationException">A cookie is appended after the HTTP headers have been sent</exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.SetCookie(Crestron.SimplSharp.WebScripting.HttpCwsCookie)">
+            <summary>
+            Updates an existing cookie in the cookie collection.
+            </summary>
+            <param name="cookie">The <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookie"/> in the collection to be updated.</param>
+            <exception cref="T:System.InvalidOperationException">A cookie is set after the HTTP headers have been sent</exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.Redirect(System.String)">
+            <summary>
+            Redirects a client to a new URL and specifies the new URL.
+            </summary>
+            <param name="url">The target location.</param>
+            <exception cref="T:System.InvalidOperationException">A redirection is attempted after the HTTP headers have been sent.</exception>
+            <exception cref="T:System.ArgumentNullException">url is null.</exception>
+            <exception cref="T:System.ArgumentException">url contains a newline character.</exception>
+            <remarks>
+            This method only available in firmware version 1.503.0000 and onwards.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsResponse.Redirect(System.String,System.Boolean)">
+            <summary>
+            Redirects a client to a new URL. Specifies the new URL and whether execution
+            of the current page should terminate.
+            </summary>
+            <param name="url">The target location.</param>
+            <param name="endResponse">Indicates whether execution of the current page should terminate.</param>
+            <exception cref="T:System.ArgumentNullException">url is null.</exception>
+            <exception cref="T:System.InvalidOperationException">A redirection is attempted after the HTTP headers have been sent.</exception>
+            <exception cref="T:System.ArgumentException">url contains a newline character.</exception>
+            <remarks>
+            This method only available in firmware version 1.503.0000 and onwards.
+            </remarks>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.StatusDescription">
+            <summary>
+            Gets or sets the HTTP status string of the output returned to the client.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">StatusDescription is set after the HTTP headers have been sent.</exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">The selected value has a length greater than 512.</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.StatusCode">
+            <summary>
+            Gets or sets the HTTP status code of the output returned to the client.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">StatusCode is set after the HTTP headers have been sent</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.Headers">
+            <summary>
+            Gets the collection of response headers.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Headers is set after the HTTP headers have been sent</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.Cookies">
+            <summary>
+            Gets the response cookie collection.
+            </summary>
+            <returns>The response cookie collection.</returns>
+            <exception cref="T:System.InvalidOperationException">Server variable is requested after the final data have been sent.</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.OutputStream">
+            <summary>
+            Gets binary output to the outgoing HTTP content body.
+            </summary>
+            <returns>
+                An IO Stream representing the raw contents of the outgoing HTTP
+                content body.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.BufferOutput">
+            <summary>
+            Gets or sets a value indicating whether to buffer output and send it after the complete response is finished processing.
+            </summary>
+            <returns>true if the output to client is buffered; otherwise, false.</returns>
+            <exception cref="T:System.NotSupportedException">Currently unbuffered mode is only supported</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.Charset">
+            <summary>
+            Gets or sets the HTTP character set of the output stream.
+            </summary>
+            <returns>The HTTP character set of the output stream.</returns>
+            <exception cref="T:System.InvalidOperationException">Charset is set after the HTTP headers have been sent</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.ContentEncoding">
+            <summary>
+            Gets or sets the HTTP character set of the output stream.
+            </summary>
+            <returns>A <see cref="T:System.Text.Encoding"/> object that contains information about the character set of the current response.</returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.HeaderEncoding">
+            <summary>
+            Gets or sets an <see cref="T:System.Text.Encoding"/> object that represents the encoding for the current header output stream.
+            </summary>
+            <returns> An <see cref="T:System.Text.Encoding"/> that contains information about the character set for the current header.</returns>
+            <exception cref="T:System.NotSupportedException">ASCII encoding only</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.ContentType">
+            <summary>
+            Gets or sets the HTTP MIME type of the output stream.
+            </summary>
+            <returns>The HTTP MIME type of the output stream. The default value is "text/html".</returns>
+            <exception cref="T:System.InvalidOperationException">ContentType is set after the HTTP headers have been sent</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.IsClientConnected">
+            <summary>
+            Gets a value indicating whether the client is still connected to the server.
+            </summary>
+            <returns>true if the client is currently connected; otherwise, false.</returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsResponse.SuppressContent">
+            <summary>
+            Gets or sets a value indicating whether to send HTTP content to the client.
+            </summary>
+            <returns>true to suppress output; otherwise, false.</returns>
+            <exception cref="T:System.NotSupportedException">Not available in unbuffered mode</exception>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection">
+            <summary>
+            Provides a type-safe way to manipulate HTTP cookies.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Add(Crestron.SimplSharp.WebScripting.HttpCwsCookie)">
+            <summary>
+            Adds the specified cookie to the cookie collection.
+            </summary>
+            <param name="cookie">The HttpCwsCookie to add to the collection.</param>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Add(System.String,System.String)">
+            <summary>
+            Creates and adds new cookie with the name and value provided.
+            </summary>
+            <param name="name">Name of cookie to create and add.</param>
+            <param name="value">Value of cookie to create and add.</param>
+            <returns>The HttpCwsCookie created and added.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Clear">
+            <summary>
+            Clears all cookies from the cookie collection.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Get(System.Int32)">
+            <summary>
+                Returns the HttpCwsCookie item with the specified index from the
+                cookie collection.
+            </summary>
+            <param name="index">The index of the cookie to return from the collection.</param>
+            <returns>The HttpCwsCookie specified by index.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Get(System.String)">
+            <summary>
+                Returns the cookie with the specified name from the cookie collection.
+            </summary>
+            <param name="name">The name of the cookie to retrieve from the collection.</param>
+            <returns>The HttpCwsCookie specified by name.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.GetKey(System.Int32)">
+            <summary>
+                Returns the key (name) of the cookie at the specified numerical index.
+            </summary>
+            <param name="index">The index of the key to retrieve from the collection.</param>
+            <returns>The name of the cookie specified by index.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Remove(System.String)">
+            <summary>
+                Removes the cookie with the specified name from the collection.
+            </summary>
+            <param name="name">The name of the cookie to remove from the collection.</param>
+            <returns>The HttpCwsCookie specified by name.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.RemoveAt(System.Int32)">
+            <summary>
+                Removes the cookie with the specified index from the collection.
+            </summary>
+            <param name="index">The index of the cookie to remove from the collection.</param>
+            <returns>The HttpCwsCookie specified by index.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Set(Crestron.SimplSharp.WebScripting.HttpCwsCookie)">
+            <summary>
+                Updates the value of an existing cookie in a cookie collection.
+            </summary>
+            <param name="cookie">The HttpCwsCookie object to update.</param>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Set(System.String,System.String)">
+            <summary>
+            Creates new cookie with the name and value provided and 
+            updates the value of an existing cookie in the cookie collection.
+            If such a cookie does not exist in the collection, the newly created one will be added.
+            </summary>
+            <param name="name">Name of cookie to create and add.</param>
+            <param name="value">Value of cookie to create and add.</param>
+            <returns>The HttpCwsCookie created.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.ToArray">
+            <summary>
+            Copies all cookies from the collection to an array of HttpCwsCookie objects.
+            </summary>
+            <returns>New array of HttpCwsCookie objects.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.GetEnumerator">
+            <summary>
+                Returns an enumerator that iterates through the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/>.
+            </summary>
+            <returns>Returns an enumerator that iterates through the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/>.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Remove(Crestron.SimplSharp.WebScripting.HttpCwsCookie)">
+             <summary>
+                 Removes the first occurrence of a specific <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookie"/> from the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/>.
+             </summary>
+             <param name="item">The <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookie"/> to remove from the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/>.</param>
+             <returns>
+                 true if item was successfully removed from the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/>;
+                 otherwise, false. This method also returns false if item is not found in
+                 the original <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/>.
+            </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Contains(Crestron.SimplSharp.WebScripting.HttpCwsCookie)">
+            <summary>
+            Determines whether the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/> contains a specific value.
+            </summary>
+            <param name="item">The object to locate in the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/>.</param>
+            <returns>true if item is found in the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/>; otherwise, false.</returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.AllKeys">
+            <summary>
+                Gets a string array containing all the keys (cookie names) in the cookie
+                collection.
+            </summary>
+            <returns>
+                An array of cookie names.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Item(System.Int32)">
+            <summary>
+                Gets the cookie with the specified numerical index from the cookie collection.
+            </summary>
+            <param name="index">The index of the cookie to retrieve from the collection.</param>
+            <returns>The HttpCwsCookie specified by index.</returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Item(System.String)">
+            <summary>
+            Gets the cookie with the specified name from the cookie collection.
+            </summary>
+            <param name="name">Name of cookie to retrieve.</param>
+            <returns>The HttpCwsCookie specified by name.</returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection.Count">
+             <summary>
+                 Gets the number of elements contained in the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/>.
+             </summary>
+             <returns>
+                 The number of elements contained in the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsCookieCollection"/>.
+            </returns>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsCookie">
+            <summary>
+            Provides a type-safe way to create and manipulate individual HTTP cookies.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookie.#ctor(System.String)">
+            <summary>
+            Creates a named new cookie.
+            </summary>
+            <param name="name">The name of the new cookie.</param>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookie.#ctor(System.String,System.String)">
+            <summary>
+            Creates a named new cookie with a value.
+            </summary>
+            <param name="name">The name of the new cookie.</param>
+            <param name="value">The value of the new cookie.</param>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsCookie.ToString">
+            <summary>
+            Converts the value of the cookie to its equivalent string representation
+            </summary>
+            <returns>Returns "Set-cookie" header ready representation of the cookie.</returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookie.Domain">
+             <summary>
+             Gets or sets the domain to associate the cookie with.
+             </summary>
+             <returns>
+                 The name of the domain to associate the cookie with. The default value is null reference
+                 which means the current domain.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookie.Expires">
+            <summary>
+            Gets or sets the expiration date and time for the cookie.
+            </summary>
+            <returns>
+                The time of day (on the client) at which the cookie expires.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookie.HttpOnly">
+            <summary>
+            Gets or sets a value that specifies whether a cookie is accessible by client-side script.
+            </summary>
+            <returns>
+                true if the cookie has the HttpOnly attribute and cannot be accessed through
+                a client-side script; otherwise, false. The default is false.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookie.Name">
+            <summary>
+            Gets or sets the name of a cookie.
+            </summary>
+            <returns>
+                The default value is a null reference unless the
+                constructor specifies otherwise.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookie.Path">
+            <summary>
+            Gets or sets the virtual path to transmit with the current cookie.
+            </summary>
+            <returns>
+                The virtual path to transmit with the cookie. The default value is a null reference.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookie.Secure">
+            <summary>
+                Gets or sets a value indicating whether to transmit the cookie using Secure
+                Sockets Layer (SSL)--that is, over HTTPS only.
+            </summary>
+            <returns>
+                true to transmit the cookie over an SSL connection (HTTPS); otherwise, false.
+                The default value is false.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsCookie.Value">
+            <summary>
+            Gets or sets an individual cookie value.
+            </summary>
+            <returns>
+                The value of the cookie. The default value is a null reference.
+            </returns>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsContext">
+            <summary>
+            Encapsulates all the Http context elements of the current request
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsContext.CurrentHandler">
+            <summary>
+                Gets the <see cref="T:Crestron.SimplSharp.WebScripting.IHttpCwsHandler"/> object that represents the currently executing
+                handler.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsContext.Request">
+            <summary>
+            Gets a reference to the actual <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRequest"/> object.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsContext.Response">
+            <summary>
+            Gets a reference to the actual <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsResponse"/> object.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsContext.Server">
+            <summary>
+            Gets a reference to the actual <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsServer"/> object.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsContext.Timestamp">
+            <summary>
+            Gets the instantiation timestamp of the current HTTP request.
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsRequest">
+            <summary>
+            Represents http-specific data of the request received by the server
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRequest.GetServerVariable(System.String)">
+            <summary>
+            Method to retrieve a named server's variable
+            </summary>
+            <param name="varName">Name of the variable</param>
+            <returns>The string containing the variable</returns>
+            <exception cref="T:System.InvalidOperationException">Server variable is requested after the final data have been sent.</exception>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRequest.GetUserAccessLevel">
+            <summary>
+            Method to retrieve the login user access.
+            minimum firmware version required 1.502.0011
+            </summary>
+            <returns>CrestronAuthenticationAccessEnum</returns>
+            <exception cref="T:System.NotSupportedException">This method is only available with minimum firmware: 1.502.0011</exception>
+            <exception cref="T:System.InvalidOperationException">Server variable is requested after the final data have been sent.</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.Headers">
+            <summary>
+            Gets a collection of HTTP headers.
+            </summary>
+            <returns>
+            A <see cref="T:System.Collections.Specialized.NameValueCollection"/> of the headers.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">Server variable is requested after the final data have been sent.</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.Cookies">
+            <summary>
+            Gets a collection of cookies sent by the client.
+            </summary>
+            <returns>
+                An HttpCwsCookieCollection object representing the client's cookie
+                variables.
+            </returns>
+            <exception cref="T:System.InvalidOperationException">Server variable is requested after the final data have been sent.</exception>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.TotalBytes">
+            <summary>
+            Gets the number of bytes in the current input stream.
+            </summary>
+            <returns>
+                The number of bytes in the input stream.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.InputStream">
+            <summary>
+            Gets the contents of the incoming HTTP entity body.
+            </summary>
+            <returns>
+                A Stream object representing the contents of the incoming HTTP
+                content body.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.HttpMethod">
+            <summary>
+            Gets the HTTP data transfer method (such as GET, POST, or HEAD) used by the client.
+            </summary>
+            <returns>
+                The HTTP data transfer method used by the client.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.Path">
+            <summary>
+            Gets the virtual path of the current request.
+            </summary>
+            <returns>
+                The virtual path of the current request.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.PathInfo">
+            <summary>
+            Gets additional path information for a resource with a URL extension.
+            </summary>
+            <returns>
+                Additional path information for a resource.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.PhysicalPath">
+            <summary>
+            Gets the physical file system path corresponding to the requested URL.
+            </summary>
+            <returns>
+                The file system path of the current request.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.QueryString">
+            <summary>
+            Gets the collection of HTTP query string variables.
+            </summary>
+            <returns>
+                A <see cref="T:System.Collections.Specialized.NameValueCollection"/> containing the collection
+                of query string variables sent by the client.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.ContentEncoding">
+            <summary>
+            Gets or sets the character set of the request's entity-body.
+            </summary>
+            <returns>
+            An <see cref="T:System.Text.Encoding"/> object representing the client's character set.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.ContentLength">
+            <summary>
+            Gets the length, in bytes, of content sent by the client.
+            </summary>
+            <returns>
+                The length, in bytes, of content sent by the client.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.ContentType">
+            <summary>
+            Gets the MIME content type of the incoming request.
+            </summary>
+            <returns>
+                A string representing the MIME content type of the incoming request, for
+                example, "text/html".
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.AcceptTypes">
+            <summary>
+            Gets a string array of client-supported MIME accept types.
+            </summary>
+            <returns>
+                A string array of client-supported MIME accept types.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.RawUrl">
+            <summary>
+            Gets the raw URL of the current request.
+            </summary>
+            <returns>
+                The raw URL of the current request.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.Url">
+            <summary>
+            Gets information about the URL of the current request.
+            </summary>
+            <returns>
+                A <see cref="T:System.Uri"/> object containing information regarding the URL of the current
+                request.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.UserAgent">
+            <summary>
+            Gets the raw user agent string of the client browser.
+            </summary>
+            <returns>
+                The raw user agent string of the client browser.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.UserHostAddress">
+            <summary>
+            Gets the IP host address of the remote client.
+            </summary>
+            <returns>
+                The IP address of the remote client.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.UserHostName">
+            <summary>
+            Gets the DNS name of the remote client.
+            </summary>
+            <returns>
+                The DNS name of the remote client.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.UserLanguages">
+            <summary>
+            Gets a sorted string array of client language preferences.
+            </summary>
+            <returns>
+                A sorted string array of client language preferences, or null if empty.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.UrlReferrer">
+            <summary>
+            Gets information about the URL of the client's previous request that linked to the current URL.
+            </summary>
+            <returns>
+                A <see cref="T:System.Uri"/> object.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.IsSecureConnection">
+            <summary>
+            Gets a value indicting whether the HTTP connection uses secure sockets (that is, HTTPS).
+            </summary>
+            <returns>
+                true if the connection is an SSL connection; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.IsLocal">
+            <summary>
+            Gets a value indicating whether the request is from the local computer.
+            </summary>
+            <returns>
+                true if the request is from the local computer; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsRequest.RouteData">
+            <summary>
+                Gets data about the requested route.
+            </summary>
+            <returns>
+            An object that contains information about the requested route.
+            </returns>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsRequestEventHandler">
+            <summary>
+            Represents the method that will handle an Http request event.
+            </summary>
+            <param name="sender">The source of the event</param>
+            <param name="args">The event's argument containing the request data</param>
+            <returns></returns>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsRequestEventArgs">
+            <summary>
+            The argument passed along with incoming Http request event to the handler
+            </summary>
+        </member>
+        <member name="F:Crestron.SimplSharp.WebScripting.HttpCwsRequestEventArgs.Context">
+            <summary>
+            The context object of the Http request
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsRequestEventArgs.#ctor(Crestron.SimplSharp.WebScripting.HttpCwsContext)">
+            <summary>
+            Initializes event argument object
+            </summary>
+            <param name="context">The context the event is related to.</param>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.HttpCwsServer">
+            <summary>
+            The Crestron Web Scripting server class
+            </summary>
+            <example>
+            The example starts a CWS server, adds 3 routes to its URL routing table, then registers the server with the CWS framework
+            <code>
+            // Start up the server. The root path to this server would be
+            // 'http://&lt;control-system-hostname&gt;/cws/root'
+                                  
+            server = new HttpCwsServer("/root"); // The virtual path provided here represents the beginning of the path after "/cws"
+            
+            /*
+            URL Routing table:
+            	root/route1
+            	root/route1/about
+            	root/route1/{id_number}
+            */
+            
+            // This event handler will execute each time the server receives an HTTP request, but it should not process them
+            server.ReceivedRequestEvent += new HttpCwsRequestEventHandler(server_ReceivedRequestEvent);
+            
+            // Any requests that do not fit the routes in the routing table will be processed by this handler, which 
+            // implements IHttpCwsHandler
+            server.HttpRequestHandler = new DefaultHandler();
+            
+            // Add routes to server's routing table: In this example, each route is associated with its own 
+            // RouteHandler, an object instantiated from a class implementing IHttpCwsHandler that the programmer has defined elsewhere.
+            // This object will process the HTTP request and write its response.  Other designs might use a single route handler 
+            // that interprets the full requested path and performs the route handling in this handler's ProcessRequest method
+            
+            HttpCwsRoute route = new HttpCwsRoute("route1"); // do not include the leading '/' in the HttpCwsRoute constructor
+            route.RouteHandler = new Route1Handler();
+            server.Routes.Add(route);
+            
+            route = new HttpCwsRoute("route1/about");
+            route.RouteHandler = new Route1AboutHandler();
+            server.Routes.Add(route);
+            
+            // A URL pattern may be passed to the HttpCwsRoute constructor. 
+            // The variable id_number will be resolved by the client
+            route = new HttpCwsRoute("route1/{id_number}");
+            route.RouteHandler = new Route1IdNumberHandler();
+            server.Routes.Add(route);
+            
+            // Note: The order in which you add the routes matters. The HttpCwsServer will search in this order for a route matching
+            // the requested URL, stopping at the first match it finds and calling the corresponding handler's 
+            // ProcessRequest method, or that of the HttpRequestHandler (called "DefaultHandler" in this example) 
+            // if no route-specific handler exists. Therefore, if the client navigates to /cws/root/route1/about,  
+            // Route1IdNumberHandler's ProcessRequest method will NOT be invoked, even though this URL also matches
+            // /cws/root/route1/{id_number}
+            
+            // Register the CWS server to start receiving HTTP requests
+            server.Register();
+            
+            // [...]
+            // Programmer would provide implementations for the server_ReceivedRequestEvent method and the
+            // DefaultHandler, Route1Handler, Route1AboutHandler, and Route1IdNumberHandler classes
+            </code>
+            </example>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.#ctor(System.String)">
+            <summary>
+            Initializes a Http Server instance and registers the virtual URL path with the IIS server
+            </summary>
+            <param name="cwsPath">The URL path starting right after /CWS root</param>
+            <example>
+            <code>
+            //Create server with "/api" virtual path
+            //The base URL will look like http://your-host-name-or-ip/cws/api
+            cwsServ = new HttpCwsServer("/API");
+            //Do something light on the event. Do not process the requests in the event handler.
+            cwsServ.ReceivedRequestEvent += new HttpCwsRequestEventHandler(cwsServ_ReceivedRequestEvent);
+            cwsServ.HttpRequestHandler = new _cwsServ_Handler(); //Default Handler to process an unrouted or unsolicited request
+            </code>
+            </example>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.Finalize">
+            <summary>
+            The finalizer
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.Dispose">
+            <summary>
+            Unregisters the URL path with IIS server and cleans up the server object's resources
+            </summary>
+            <example>
+            <code>
+            void ControlSystem_CWSProgramEventHandler(eProgramStatusEventType programStatusEventType)
+            {
+                switch (programStatusEventType)
+                {
+                    case (eProgramStatusEventType.Paused):
+                        //The program has been paused.  Pause all user threads/timers as needed.
+                        break;
+                    case (eProgramStatusEventType.Resumed):
+                        //The program has been resumed. Resume all the user threads/timers as needed.
+                        break;
+                    case (eProgramStatusEventType.Stopping):
+                        //The program has been stopped.
+                        //Close all threads. 
+                        //Shutdown all Client/Servers in the system.
+                        //General cleanup.
+                        //Unsubscribe to all System Monitor events
+            
+                        //NOTE: It is important to properly shutdown the cws server on program stop
+                        cwsServ.Dispose(); //Unregistering and disposing the server on program stop
+                        break;
+                }
+            
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.Register">
+            <summary>
+            Registers the URL path provided in the constructor with the CWS framework.
+            </summary>
+            <returns>True if successfully registered else false.</returns>
+            <remarks>Note that all the routes must be added to the server's collection <see cref="P:Crestron.SimplSharp.WebScripting.HttpCwsServer.Routes"/> before this method called.
+            Alternatively, you should use server's AddRoute/RemoveRoute method instead of manipulating the collection.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.Unregister">
+            <summary>
+            Unregisters the URL path provided in the constructor with the CWS framework.
+            </summary>
+            <returns>True if successfully unregistered else false.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.AddRoute(Crestron.SimplSharp.WebScripting.HttpCwsRoute)">
+            <summary>
+                Adds a route to the end of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+            </summary>
+            <param name="route">The object to be added to the end of the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.</param>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.RemoveRoute(Crestron.SimplSharp.WebScripting.HttpCwsRoute)">
+            <summary>
+                Removes the first occurrence of a specific route from the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+            </summary>
+            <param name="route">The route object to remove from the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.</param>
+            <returns>
+                true if route is successfully removed; otherwise, false. This method also
+                returns false if route was not found in the original <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRouteCollection"/>.
+            </returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlDecode(System.String)">
+            <summary>
+            URL-decodes a string and returns the decoded string.
+            </summary>
+            <param name="s">The text string to decode.</param>
+            <returns>The decoded text.</returns>
+            <remarks>
+            This method utilizes UTF8 encoding (<see cref="P:System.Text.Encoding.UTF8"/>).
+            In order to use Http request's ContentEncoding, provide one to the overloaded method: <see cref="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlDecode(System.String,System.Text.Encoding)"/>
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlDecode(System.String,System.Text.Encoding)">
+            <summary>
+            URL-decodes a string and returns the decoded string.
+            </summary>
+            <param name="s">The text string to decode.</param>
+            <param name="en">The Encoding that specifies the decoding scheme.</param>
+            <returns>The decoded text.</returns>
+            <remarks>
+            This method only available in firmware version 1.503.0000 and onwards.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlEncode(System.String)">
+            <summary>
+                URL-encodes a string and returns the encoded string.
+            </summary>
+            <param name="s">The text to URL-encode.</param>
+            <returns>The URL-encoded text.</returns>
+            <remarks>
+            This method utilizes UTF8 encoding (<see cref="P:System.Text.Encoding.UTF8"/>).
+            In order to use Http request's ContentEncoding, provide one to the overloaded method: <see cref="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlEncode(System.String,System.Text.Encoding)"/>
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlEncode(System.String,System.Text.Encoding)">
+            <summary>
+                URL-encodes a string and returns the encoded string.
+            </summary>
+            <param name="s">The text to URL-encode.</param>
+            <param name="en">The Encoding that specifies the encoding scheme.</param>
+            <returns>The URL-encoded text.</returns>
+            <remarks>
+            This method only available in firmware version 1.503.0000 and onwards.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlDecode(System.String,Crestron.SimplSharp.CrestronIO.TextWriter)">
+            <summary>
+                Decodes an HTML string received in a URL and sends the resulting output to
+                a <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/> output stream.
+            </summary>
+            <param name="s">The HTML string to decode.</param>
+            <param name="output">The <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/> output stream that contains the decoded string.</param>
+            <remarks>
+            This method utilizes UTF8 encoding (<see cref="P:System.Text.Encoding.UTF8"/>).
+            In order to use Http request's ContentEncoding, provide one to the overloaded method: <see cref="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlDecode(System.String,Crestron.SimplSharp.CrestronIO.TextWriter,System.Text.Encoding)"/>
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlDecode(System.String,Crestron.SimplSharp.CrestronIO.TextWriter,System.Text.Encoding)">
+            <summary>
+                Decodes an HTML string received in a URL and sends the resulting output to
+                a <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/> output stream.
+            </summary>
+            <param name="s">The HTML string to decode.</param>
+            <param name="output">The <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/> output stream that contains the decoded string.</param>
+            <param name="en">The Encoding that specifies the decoding scheme.</param>
+            <remarks>
+            This method only available in firmware version 1.503.0000 and onwards.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlEncode(System.String,Crestron.SimplSharp.CrestronIO.TextWriter)">
+            <summary>
+                URL-encodes a string and sends the resulting output to a <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/>
+                output stream.
+            </summary>
+            <param name="s">The text string to encode.</param>
+            <param name="output">The <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/> output stream that contains the encoded string.</param>
+            <remarks>
+            This method utilizes UTF8 encoding (<see cref="P:System.Text.Encoding.UTF8"/>).
+            In order to use Http request's ContentEncoding, provide one to the overloaded method: <see cref="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlEncode(System.String,Crestron.SimplSharp.CrestronIO.TextWriter,System.Text.Encoding)"/>
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.UrlEncode(System.String,Crestron.SimplSharp.CrestronIO.TextWriter,System.Text.Encoding)">
+            <summary>
+                URL-encodes a string and sends the resulting output to a <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/>
+                output stream.
+            </summary>
+            <param name="s">The text string to encode.</param>
+            <param name="output">The <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/> output stream that contains the encoded string.</param>
+            <param name="en">The Encoding that specifies the decoding scheme.</param>
+            <remarks>
+            This method only available in firmware version 1.503.0000 and onwards.
+            </remarks>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.HtmlDecode(System.String)">
+            <summary>
+            Decodes an HTML-encoded string and returns the decoded string.
+            </summary>
+            <param name="s">The HTML string to decode.</param>
+            <returns>The decoded text.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.HtmlDecode(System.String,Crestron.SimplSharp.CrestronIO.TextWriter)">
+            <summary>
+                Decodes an HTML-encoded string and sends the resulting output to a <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/>
+                output stream.
+            </summary>
+            <param name="s">The HTML string to decode.</param>
+            <param name="output">The <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/> output stream that contains the decoded string.</param>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.HtmlEncode(System.String)">
+            <summary>
+            HTML-encodes a string and returns the encoded string.
+            </summary>
+            <param name="s">The text string to encode.</param>
+            <returns>The HTML-encoded text.</returns>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.HttpCwsServer.HtmlEncode(System.String,Crestron.SimplSharp.CrestronIO.TextWriter)">
+            <summary>
+                HTML-encodes a string and sends the resulting output to a <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/>
+                output stream.
+            </summary>
+            <param name="s">The string to encode.</param>
+            <param name="output">The <see cref="T:Crestron.SimplSharp.CrestronIO.TextWriter"/> output stream that contains the encoded string.</param>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsServer.HttpRequestHandler">
+            <summary>
+            Gets or sets the object that processes requests.
+            </summary>
+            <example>
+            <code>
+            class _cwsServ_Route_Handler : IHttpCwsHandler
+            {
+                #region IHttpCwsHandler Members
+            
+                void IHttpCwsHandler.ProcessRequest(HttpCwsContext context)
+                {
+                    context.Response.AppendHeader("Transfer-Encoding", "chunked");
+                    context.Response.ContentType = "application/json";
+            
+                    string json = "{\"Routed handler\": {\"Path\": \"" + context.Request.Path + "\"," +
+                                    "\"Name\": \"" + context.Request.RouteData.Route.Name + "\"";
+            
+                    foreach (var v in context.Request.RouteData.Values)
+                    {
+                        json += ",\"" + v.Key + "\": \"" + v.Value.ToString() + "\"";
+                    }
+                    json += "}}";
+            
+                    //Send the response to the client
+                    context.Response.Write(json, true);
+                }
+            
+                #endregion
+            }
+            </code>
+            </example>
+        </member>
+        <member name="E:Crestron.SimplSharp.WebScripting.HttpCwsServer.ReceivedRequestEvent">
+            <summary>
+            Occurs when incoming Http request is ready to be processed and responded.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharp.WebScripting.HttpCwsServer.Routes">
+            <summary>
+                Gets a collection of objects that derive from the <see cref="T:Crestron.SimplSharp.WebScripting.HttpCwsRoute"/> class
+            </summary>
+            <returns>
+                An object that contains all the routes in the collection.
+            </returns>
+            <example>
+            <code>
+            //Test route with a handler
+            //The URL will look like http://your-host-name-or-ip/cws/api/devicename/presets/123/recall
+            HttpCwsRoute route = new HttpCwsRoute("{device}/Presets/{id}/Recall") { Name = "TEST_ROUTE" };
+            //The Handler to process the http request routed
+            route.RouteHandler = new _cwsServ_Route_Handler();
+            cwsServ.Routes.Add(route); //Add the route to server's routing table
+            </code>
+            </example>
+        </member>
+        <member name="T:Crestron.SimplSharp.WebScripting.IHttpCwsHandler">
+            <summary>
+                Defines the interface that CWS or user implements to synchronously process HTTP
+                requests.
+            </summary>
+            <example>
+            MyHttpHandler implements a ProcessRequest method to satisfy the IHttpCwsHandler interface
+            <code>
+            class MyHttpHandler : IHttpCwsHandler
+            {
+            	string allowedMethods = "GET, HEAD"; // value of the "Allow" header when the server returns a "Method Not Allowed" response
+            	
+            	public void ProcessRequest(HttpCwsContext context)
+            	{
+            		if (context.Request.HttpMethod == "GET" || context.Request.HttpMethod == "HEAD") // HTTP methods are case-sensitive
+            		{
+            			context.Response.StatusCode = 200;
+            			context.Response.StatusDescription = "OK";
+            			context.Response.AppendHeader("Content-Type", "application/json");
+            
+            			if (context.Request.HttpMethod == "GET") // add the body for the GET request
+            			{
+            				string json = "{ \"response\": \"GET response\" }";
+            				context.Response.Write(json, false); // write the JSON string into the body of the HTTP response
+            			}
+            
+            			// The call to End dispatches either the HEAD or the GET response
+            			context.Response.End();
+            		}
+            		else
+            		{
+            			context.Response.StatusCode = 405;
+            			context.Response.StatusDescription = "Method Not Allowed";
+            			context.Response.AppendHeader("Allow", allowedMethods);
+            			context.Response.End();
+            		}
+            	}
+            };
+            </code>
+            </example>
+        </member>
+        <member name="M:Crestron.SimplSharp.WebScripting.IHttpCwsHandler.ProcessRequest(Crestron.SimplSharp.WebScripting.HttpCwsContext)">
+            <summary>
+                Provides processing of HTTP requests by a HttpHandler that implements
+                the <see cref="T:Crestron.SimplSharp.WebScripting.IHttpCwsHandler"/> interface.
+            </summary>
+            <param name="context">The object encapsulating the HTTP request.</param>
+            <returns>true is the request was processed successfully; otherwise, false.</returns>
+        </member>
+    </members>
+</doc>

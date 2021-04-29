@@ -1,0 +1,460 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Crestron.SimplSharpPro.Gateways</name>
+    </assembly>
+    <members>
+        <member name="T:Crestron.SimplSharpPro.Gateways.CenRfgwEx">
+             <summary>
+             External ethernet CEN-RFGW-EX gateway.
+             </summary>
+             <example>
+             <code>
+             private static CenRfgwEx _rfGateway;
+            
+             /// Helper function to initialize the rfGateway device and whatever other devices you are connecting to it.
+             public static bool InitializeDevice(CrestronControlSystem controller)
+             {
+             	bool returnValue = false;
+             	try
+             	{
+             		// If the controller is not valid (null) return right away.
+             		if (controller == null)
+             			return returnValue;
+            
+             		if (!controller.SupportsEthernet)
+             			return returnValue;
+            
+             		// Create a new object for the rfGateway connected to the Control System. ->(this)
+             		// Device is connected the control system by an IP_ID. 
+             		// In this example IP_ID 4 is used.
+             		// The second parameter, "this" is referring to the ControlSystem class that extends the CrestronControlSystem.
+             		// If you are not within the scope of such a class, make sure you have access to it. 
+             		_rfGateway = new CenRfgwEx(0x04, controller);
+            
+             		// IMPORTANT: You must add all devices connected to the rfGateway before you register the device.
+            
+             		// Reserve signals for setup info and connected device information.
+             		_rfGateway.ExtenderSetupInformation.Use();
+            
+             		// Assign the dimmer, and rfGateway a description.
+             		// These descriptions will be used within the IP table constructed by the program on the control system.
+             		_rfGateway.Description = "GWEXER Main";
+            
+             		// Initialize our rfGateway's event handlers.
+             		EventHandlerSetup();
+            
+             		// We must register the device with the rfGateway, if it fails print to the error log
+             		// the reason for the failure. 
+             		// IMPORTANT: If you wish to add another device paired to the rfGateway, you must
+             		// unregister the rfGateway from the controller, create the object for your device
+             		// and register once again.
+             		if (_rfGateway.Register() != eDeviceRegistrationUnRegistrationResponse.Success)
+             		{
+             			ErrorLog.Error("RF-Gateway cannot be registered: {0}", rfGateway.RegistrationFailureReason);
+             		}
+             		else
+             		{
+             			// If everything goes to plan, set the return value to true.
+             			// indication that initialization when smoothly.
+             			returnValue = true;
+             		}
+             	}
+             	catch (Exception e)
+             	{
+             		// If anything has an issue, exception will trigger and be logged within your device's error log.
+             		ErrorLog.Error("Error Initializing rfGateway or Registering RF Devices: {0}", e.Message);
+            
+             		// Mark our return value for failure.
+             		returnValue = false;
+             	}
+            
+             	// Finally, return an indication of the success of the function execution.
+             	return returnValue;
+             }
+            
+             /// Initializes all event handlers for the rfGateway.
+             private static void EventHandlerSetup()
+             {
+                 if(_rfGateway == null){
+                     ErrorLog.Error("Cannot assign to a null object");
+                     throw new NullReferenceException();
+                     return;
+                 }
+                   
+             	// Listen for a change in the rfGateway's online status.
+             	_rfGateway.OnlineStatusChange += new OnlineStatusChangeEventHandler(OnlineStatusChange);
+            
+             	// Listener for successful messages sent to the rfGateway.
+             	_rfGateway.ExtenderCresnetMessagesOnSuccess.DeviceExtenderSigChange += new DeviceExtenderJoinChangeEventHandler(
+                                                         								rfGateway_ExtenderCresnetMessagesOnSuccess_DeviceExtenderSigChange
+                                                        							);
+            
+             	// Listener for failed messages sent to the rfGateway.																							  
+             	_rfGateway.ExtenderCresnetMessagesOnFailure.DeviceExtenderSigChange += new DeviceExtenderJoinChangeEventHandler(
+             																		rfGateway_ExtenderCresnetMessagesOnFailure_DeviceExtenderSigChange
+             																	);
+             }
+            
+             /// Event handler for all online status changes.
+             /// When the device goes online or offline this event handler will listen for it.
+             static void OnlineStatusChange(GenericBase currentDevice, OnlineOfflineEventArgs args)
+             {
+             	if (args.DeviceOnLine)
+             		ErrorLog.Notice("{0} is online", currentDevice.Description);
+             	else
+             		ErrorLog.Notice("{0} is offline", currentDevice.Description);
+             }
+            
+             /// Event handler for IP information being changed on the device.
+             /// Triggered when the device is connected to the control system.
+             /// and whenever else the IP address of the rfGateway changes.
+             static void rfGateway_IpInformationChange(GenericBase currentDevice, ConnectedIpEventArgs args)
+             {
+             	ErrorLog.Warn("IP addr: {0} . Connected: {1}", args.DeviceIpAddress, args.Connected);
+             }
+            
+             /// Event handler for Successful messages sent to the rfGateway.
+             static void rfGateway_ExtenderCresnetMessagesOnSuccess_DeviceExtenderSigChange(DeviceExtender currentDeviceExtender, SigEventArgs args)
+             {
+             	ErrorLog.Notice("rfGateway: {0} sent message successfully.", rfGateway.Description);
+             }
+            
+             /// Event handler for failed messages sent to the rfGateway.
+             static void rfGateway_ExtenderCresnetMessagesOnFailure_DeviceExtenderSigChange(DeviceExtender currentDeviceExtender, SigEventArgs args)
+             {
+             	ErrorLog.Error("rfGateway: {0} message failed.", args.Sig.StringValue);
+             }
+            
+             /// Returns a list of RFDeviceInformation related to each connected RF device to the gateway.
+             /// Important not to add devices to the List as it will not connect the device to the gateway.
+             public static IList[RFDeviceInformation] GetPairedRfDevices()
+             {
+             	return rfGateway.ExtenderSetupInformation.AcquiredDevices.AsReadOnly();
+             }
+            
+             ///  Puts the gateway into acquire mode.
+             public static void DeviceAcquireOn()
+             {
+                 // set Acquire mode on for the gateway.
+             	if (!_rfGateway.ExtenderSetupInformation.AcquireFeedback.BoolValue)
+             	    _rfGateway.ExtenderSetupInformation.AcquireOn();
+             	
+             }
+            
+             /// Turns acquire mode off on the gateway and registers itself with the controller again again.
+             public static void DeviceAcquireOff()
+             {
+             	int deviceCount = rfGateway.ExtenderSetupInformation.AcquiredDevices.Count;
+            
+             	// Check to make sure that we are in acquire mode before attempting to turn it off.
+             	if (_rfGateway.ExtenderSetupInformation.AcquireFeedback.BoolValue)
+             		// Set acquire mode to off for the gateway.
+             		_rfGateway.ExtenderSetupInformation.AcquireOff();
+            
+             	// IMPORTANT: You must add all devices connected to the rfGateway before you register the device.
+             	// Unless it's an internal gateway, in which case every device has to be registered separately. 
+             	// Examples of control systems with internal gateways are: MC3, DIN-AP3MEX.
+            
+             	if (_rfGateway.ExtenderSetupInformation.AcquiredDevices.Count > deviceCount)
+             		// If execution enters this scope, we know that a new device was added when the gateway was in acquire mode.
+             		// you must now unregister, add said device, and register the gateway with the control system.
+             }  
+             </code>
+             </example>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.CenRfgwEx.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor used to generate a new Ethernet RF EX gateway attached to a controller.
+            </summary>
+            <param name="paramIPID">IPID of the gateway.</param>
+            <param name="paramControlSystem">Crestron control system to add this device to.</param>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.CenRfgwEx.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem,System.Boolean)">
+            <summary>
+            Constructor used to generate a new Ethernet RF EX gateway attached to a controller.
+            </summary>
+            <param name="paramIPID">IP id of the gateway </param>
+            <param name="paramControlSystem"> Crestron control system to add this device to</param>
+            <param name="bIsExclusive">Indicates if the device is exclusive or shareable. The minimum firmware version required on the gateway to support the shareable feature is 2.001.0067 </param>
+        </member>
+        <member name="T:Crestron.SimplSharpPro.Gateways.CenRfgwExCresnet">
+            <summary>
+            External cresnet CEN-RFGW-EX or EX/ER gateway.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.CenRfgwExCresnet.#ctor(System.UInt32,Crestron.SimplSharpPro.DeviceSupport.IDeviceBranch)">
+            <summary>
+            Constructor to generate a new Crestron RF EX gateway attached to the specified IDeviceBranch.
+            </summary>
+            <param name="paramCresnetID">Cresnet ID of the gateway.</param>
+            <param name="paramCresnetBranch">IDeviceBranch this device is a part of.</param>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.CenRfgwExCresnet.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor to generate a new Crestron RF EX gateway attached to a controller.
+            </summary>
+            <param name="paramCresnetID">Cresnet ID of the gateway.</param>
+            <param name="paramControlSystem">Crestron control system to add this device to.</param>
+        </member>
+        <member name="T:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernet">
+            <summary>
+            Ethernet 2-way RF gateway/receiver for infiNET EX devices
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernet.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor used to generate a new Ethernet RF EX gateway attached to a controller.
+            </summary>
+            <param name="paramIPID">IPID of the gateway.</param>
+            <param name="paramControlSystem">Crestron control system to add this device to.</param>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernet.ExtenderLinkState">
+            <summary>
+            Reports the connection status of RF devices
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernet.ExtenderSetupInformation">
+            <summary>
+            Gateway setup information.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernet.ExtenderBatteryLevel">
+            <summary>
+            Reports the battery level of the RF remote
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernet.ExtenderBatteryState">
+            <summary>
+            Reports the state of the RF device's battery.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernet.ExtenderCresnetMessagesOnFailure">
+            <summary>
+            Extender to report the failed messages sent to an RF device.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernet.ExtenderCresnetMessagesOnSuccess">
+            <summary>
+            Extender to report the successful messages set to an RF device.
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExCresnet">
+            <summary>
+            Cresnet 2-way RF gateway/receiver for infiNET EX devices
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExCresnet.#ctor(System.UInt32,Crestron.SimplSharpPro.DeviceSupport.IInternalBridgeSlots)">
+            <summary>
+            Constructor to generate a new Crestron RF EX gateway a part of a CresnetBranch.
+            </summary>
+            <param name="paramParamCresnetId">Cresnet ID of the gateway.</param>
+            <param name="paramCresnetBranch">CresnetBranch this device is a part of.</param>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExCresnet.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor to generate a new Crestron RF EX gateway attached to a controller.
+            </summary>
+            <param name="paramParamCresnetId">Cresnet ID of the gateway.</param>
+            <param name="paramControlSystem">Crestron control system to add this device to.</param>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExCresnet.ExtenderLinkState">
+            <summary>
+            Reports the connection status of RF devices
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExCresnet.ExtenderSetupInformation">
+            <summary>
+            Gateway setup information.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExCresnet.ExtenderBatteryLevel">
+            <summary>
+            Reports the battery level of the RF remote
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExCresnet.ExtenderBatteryState">
+            <summary>
+            Reports the state of the RF device's battery.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExCresnet.ExtenderCresnetMessagesOnFailure">
+            <summary>
+            Extender to report the failed messages sent to an RF device.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExCresnet.ExtenderCresnetMessagesOnSuccess">
+            <summary>
+            Extender to report the successful messages set to an RF device.
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharpPro.Gateways.CenRfgwExEthernetSharable">
+            <summary>
+            Sharable external ethernet CEN-RFGW-EX gateway.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.CenRfgwExEthernetSharable.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor to generate a new shareable Crestron RF EX  gateway attached to the controller.
+            The minimum version of the gateway firmware which supports this feature is 2.001.0067.
+            </summary>
+            <param name="paramIPID">IPID of the gateway.</param>
+            <param name="paramControlSystem">Crestron control system to add this device to.</param>
+        </member>
+        <member name="T:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernetSharable">
+            <summary>
+            Ethernet 2-way RF gateway/receiver for infiNET EX devices
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernetSharable.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor used to generate a new Ethernet RF EX gateway attached to a controller.
+            </summary>
+            <param name="paramIPID">IPID of the gateway.</param>
+            <param name="paramControlSystem">Crestron control system to add this device to.</param>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernetSharable.ExtenderLinkState">
+            <summary>
+            Reports the connection status of RF devices
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernetSharable.ExtenderSetupInformation">
+            <summary>
+            Gateway setup information.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernetSharable.ExtenderBatteryLevel">
+            <summary>
+            Reports the battery level of the RF remote
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernetSharable.ExtenderBatteryState">
+            <summary>
+            Reports the state of the RF device's battery.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernetSharable.ExtenderCresnetMessagesOnFailure">
+            <summary>
+            Extender to report the failed messages sent to an RF device.
+            </summary>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.PrivateCenRfGwExEthernetSharable.ExtenderCresnetMessagesOnSuccess">
+            <summary>
+            Extender to report the successful messages set to an RF device.
+            </summary>
+        </member>
+        <member name="T:Crestron.SimplSharpPro.Gateways.C2nIRGw">
+            <summary>
+            The C2N-IRGW is a Cresnet IR gateway that can receive RC-5 standard codes. It provides 32 IR IDs (00 through 1F) for Crestron and 
+            third-party RC-5 remotes. 
+            <remarks>The C2nIRGw represents both the C2N-IRGW-1G and the C2N-IRGW-F devices.</remarks>
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.C2nIRGw.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructs an instance of a C2nIRGw.
+            </summary>
+            <param name="paramCresnetId">Cresnet ID of the unit.</param>
+            <param name="paramControlSystem">Control system to connect device to.</param>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.C2nIRGw.#ctor(System.UInt32,Crestron.SimplSharpPro.DeviceSupport.IDeviceBranch)">
+            <summary>
+            Constructs an instance of a C2nIRGw on IDeviceBranch
+            </summary>
+            <param name="paramCresnetId">Cresnet ID of the unit.</param>
+            <param name="paramCresnetBranch">IDeviceBranch this device is a part of.</param>
+        </member>
+        <member name="P:Crestron.SimplSharpPro.Gateways.C2nIRGw.IRInputPort">
+            <summary>
+            IR input port on the device.
+            Valid IRIDs range from 0x00 to 0x1F.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.Cresnet_C2N_IRGW.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor used to add the device to the controller.
+            </summary>
+            <param name="CID">ID of this device</param>
+            <param name="Owner">Control System to add to. Currently only supports 'this'.</param>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.Cresnet_C2N_IRGW.#ctor(System.UInt32,Crestron.SimplSharpPro.DeviceSupport.IInternalBridgeSlots)">
+            <summary>
+            Constructor used to add the device to the controller.
+            </summary>
+            <param name="CID">ID of this device</param>
+            <param name="Owner">Control System to add to. Currently only supports 'this'.</param>
+        </member>
+        <member name="T:Crestron.SimplSharpPro.Gateways.CenErfgwPoe">
+            <summary>
+            Ethernet Two-way RF gateway/receiver that provides 16 RF IDs for high power RF devices.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.CenErfgwPoe.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor to generate a new high power RF gateway device attached to a controller.
+            </summary>
+            <param name="paramIPID">IPID of the gateway.</param>
+            <param name="paramControlSystem">Crestron control system to add this device to.</param>
+        </member>
+        <member name="T:Crestron.SimplSharpPro.Gateways.CenErfgwPoeCresnet">
+            <summary>
+            Cresnet Two-way RF gateway/receiver that provides 16 RF IDs for high power RF devices.
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.CenErfgwPoeCresnet.#ctor(System.UInt32,Crestron.SimplSharpPro.DeviceSupport.IDeviceBranch)">
+            <summary>
+            Constructor to generate a new high power RF gateway device attached to the specified IDeviceBranch.
+            </summary>
+            <param name="paramCresnetID">Cresnet ID of the gateway.</param>
+            <param name="paramCresnetBranch">IDeviceBranch this device is a part of.</param>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.CenErfgwPoeCresnet.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor to generate a new high power RF gateway device attached to a controller.
+            </summary>
+            <param name="paramCresnetID">Cresnet ID of the gateway.</param>
+            <param name="paramControlSystem">Crestron control system to add this device to.</param>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.Cresnet_CEN_ERFGW_POE.#ctor(System.UInt32,Crestron.SimplSharpPro.DeviceSupport.IInternalBridgeSlots)">
+            <summary>
+            Constructor used to add the device to a CresnetBranch.    
+            </summary>
+            <param name="paramCresnetID">ID of this device</param>
+            <param name="Owner">CresnetBranch this device is a part of.</param>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.Cresnet_CEN_ERFGW_POE.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor used to add the device to the controller.       
+            </summary>
+            <param name="paramCresnetID">ID of this device</param>
+            <param name="Owner">Control System to add to. Currently only supports 'this'.</param>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.Ethernet_CEN_ERFGW_POE.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor used to add the device to the controller.        
+            </summary>
+            <param name="IPID">ID of this device</param>
+            <param name="Owner">Control System to add to. Currently only supports 'this'.</param>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.EthernetSharable_CEN_ERFGW_POE.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor used to add the device to the controller.        
+            </summary>
+            <param name="IPID">ID of this device</param>
+            <param name="Owner">Control System to add to. Currently only supports 'this'.</param>
+        </member>
+        <member name="T:Crestron.SimplSharpPro.Gateways.CenErfgwPoeEthernetSharable">
+            <summary>
+            Shareable Ethernet Two-way RF gateway/receiver that provides 16 RF IDs for high power RF devices.
+            The minimum version of the gateway firmware which supports this feature is 1.000.0053
+            </summary>
+        </member>
+        <member name="M:Crestron.SimplSharpPro.Gateways.CenErfgwPoeEthernetSharable.#ctor(System.UInt32,Crestron.SimplSharpPro.CrestronControlSystem)">
+            <summary>
+            Constructor to generate a new high power RF gateway device attached to a controller.
+            </summary>
+            <param name="paramIPID">IPID of the gateway.</param>
+            <param name="paramControlSystem">Crestron control system to add this device to.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,132 @@
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\obj\Debug\Masters2021MCP101InstructorCode.csprojAssemblyReference.cache
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\obj\Debug\Masters2021MCP101InstructorCode.csproj.CoreCompileInputs.cache
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Masters2021MCP101InstructorCode.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Masters2021MCP101InstructorCode.pdb
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.AudioDistribution.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.CrestronConnected.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.DeviceSupport.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.DM.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.EthernetCommunications.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Fusion.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Gateways.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.GeneralIO.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Keypads.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Lighting.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Media.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Remotes.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Shades.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Thermostats.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.ThreeSeriesCards.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.UC.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.UI.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\MastersHelperLibrary.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpAutoUpdateInterface.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCryptographyInterface.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCustomAttributesInterface.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCWSHelperInterface.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpExchangeWebServices.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpHelperInterface.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpNewtonsoft.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpOnvifInterface.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpPro.exe
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpReflectionInterface.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpSQLHelperInterface.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpTimerEventInterface.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.AudioDistribution.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.CrestronConnected.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.DeviceSupport.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.DM.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.EthernetCommunications.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Fusion.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Gateways.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.GeneralIO.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Keypads.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Lighting.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Media.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Remotes.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Shades.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Thermostats.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.ThreeSeriesCards.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.UC.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.UI.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpAutoUpdateInterface.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCryptographyInterface.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCustomAttributesInterface.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCWSHelperInterface.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpExchangeWebServices.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpHelperInterface.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpNewtonsoft.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpOnvifInterface.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpPro.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpReflectionInterface.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpSQLHelperInterface.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpTimerEventInterface.xml
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\obj\Debug\Masters2021MCP101InstructorCode.csproj.CopyComplete
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\obj\Debug\Masters2021MCP101InstructorCode.dll
+C:\Users\tgray\source\repos\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\obj\Debug\Masters2021MCP101InstructorCode.pdb
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Masters2021MCP101InstructorCode.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Masters2021MCP101InstructorCode.pdb
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.AudioDistribution.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.CrestronConnected.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.DeviceSupport.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.DM.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.EthernetCommunications.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Fusion.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Gateways.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.GeneralIO.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Keypads.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Lighting.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Media.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Remotes.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Shades.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Thermostats.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.ThreeSeriesCards.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.UC.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.UI.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\MastersHelperLibrary.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpAutoUpdateInterface.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCryptographyInterface.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCustomAttributesInterface.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCWSHelperInterface.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpExchangeWebServices.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpHelperInterface.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpNewtonsoft.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpOnvifInterface.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpPro.exe
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpReflectionInterface.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpSQLHelperInterface.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpTimerEventInterface.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.AudioDistribution.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.CrestronConnected.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.DeviceSupport.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.DM.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.EthernetCommunications.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Fusion.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Gateways.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.GeneralIO.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Keypads.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Lighting.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Media.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Remotes.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Shades.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.Thermostats.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.ThreeSeriesCards.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.UC.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\Crestron.SimplSharpPro.UI.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpAutoUpdateInterface.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCryptographyInterface.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCustomAttributesInterface.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpCWSHelperInterface.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpExchangeWebServices.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpHelperInterface.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpNewtonsoft.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpOnvifInterface.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpPro.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpReflectionInterface.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpSQLHelperInterface.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\bin\Debug\SimplSharpTimerEventInterface.xml
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\obj\Debug\Masters2021MCP101InstructorCode.csprojAssemblyReference.cache
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\obj\Debug\Masters2021MCP101InstructorCode.csproj.CoreCompileInputs.cache
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\obj\Debug\Masters2021MCP101InstructorCode.csproj.CopyComplete
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\obj\Debug\Masters2021MCP101InstructorCode.dll
+H:\Masters 2021 Class\Masters2021MCP101InstructorCode\Masters2021MCP101InstructorCode\obj\Debug\Masters2021MCP101InstructorCode.pdb
