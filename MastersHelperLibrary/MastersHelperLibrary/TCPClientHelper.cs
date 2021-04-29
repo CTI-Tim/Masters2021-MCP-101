@@ -147,10 +147,12 @@ namespace MastersHelperLibrary
                             string temp = txQueue.Dequeue().ToString();                  // Get our TX data out of the Queue
 
 
+                            //  Note that codepages are a complex topic and the student is encouraged to explore them further,  they are not C# specific but computer data standards
+                            //  for string data encoding.
 
                             //byte[] payload = System.Text.Encoding.UTF8.GetBytes(temp); // Convert the string to Byte array using UTF8...  Note this fails after chr127 because it uses codepage 0
 
-                            byte[] payload = System.Text.Encoding.GetEncoding(1252).GetBytes(temp);  // Codepage 1252 just happens to preserve all 256 bytes  use this ALWAYS for device communication
+                            byte[] payload = System.Text.Encoding.GetEncoding(1252).GetBytes(temp);  // Unicode just happens to preserve all 256 bytes  use this ALWAYS for device communication
 
                             myClient.SendData(payload, payload.Length);                  // Send it out to the TCP connection that wants an array of bytes.
                         }
@@ -162,7 +164,7 @@ namespace MastersHelperLibrary
 
                             //string Buffer = System.Text.Encoding.UTF8.GetString(myClient.IncomingDataBuffer); // we get bytes, time to make it a string,  Encoding may change bytes so this will not work for beyond 127
 
-                            string Buffer = System.Text.Encoding.GetEncoding(1252).GetString(myClient.IncomingDataBuffer);  // This is using the codepage 1252 trick to get all 256 byte values
+                            string Buffer = System.Text.Encoding.GetEncoding(1252).GetString(myClient.IncomingDataBuffer);  // This is using the Unicode trick to get all 256 byte values
                             
                             lastRX = Buffer.TrimEnd('\x00'); // make a copy in case the user wants to look at the last packet received, get rid of any trailing \x00's
                             OnRaiseEvent(new TCPClientHelperEventArgs("RX")); // Call the Event Handler
