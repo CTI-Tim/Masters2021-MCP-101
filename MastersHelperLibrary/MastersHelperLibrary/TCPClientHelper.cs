@@ -146,13 +146,30 @@ namespace MastersHelperLibrary
                         {
                             string temp = txQueue.Dequeue().ToString();                  // Get our TX data out of the Queue
 
+                            /* This comment block added after some great discussions about this learning point.
+                             *
+                             *Codepages in C# can be a challenge.    In this code Codepage 1252 is used but is INCORRECT.    I used  it because if you search for help with
+                             *  sending bytes in a string you will come across this answer a LOT out on the internet,  and it's the wrong answer because it has a hole in the middle that will not return
+                             *  the correct information.   I am hesitant to just hand you the student the answer because the journey into understanding it is very important and is not covered
+                             *  well in all C# training available.    Most programmers in C# will not use a string for data to and from a device or service because of the encoding,
+                             *  instead the best practice for this is to use the byte array.   This is why the TCP client is using them.   
+                             *  Byte arrays are the actual value and in a string because encoding is applied can change your data.   Many many programmers will use Encoding.ASCII and fail to get any
+                             *  bytes above 127,  same for Encoding.Utf8 and this become confusing to a Crestron programmer as we are used to a string being just a string that holds a byte array.
+                             *  
+                             *  The answer is to use codepage 28591.   But how did I or others that have fought with this get that information?   It was a deep rabbit hole of learning into codepages.
+                             *  start with  these links...
+                             *  https://bizbrains.com/blog/encoding-101-part-1-what-is-encoding/
+                             *  https://bizbrains.com/blog/encoding-101-part-2-windows-1252-vs-utf-8/
+                             *  https://docs.microsoft.com/en-us/dotnet/api/system.text.encoding.ascii?redirectedfrom=MSDN&view=net-5.0#System_Text_Encoding_ASCII
+                             *  https://docs.microsoft.com/en-us/dotnet/standard/base-types/character-encoding
+                             *  
+                             *  https://www.i18nqa.com/debug/table-iso8859-1-vs-windows-1252.html#:~:text=ISO%2D8859%2D1%20(also,assigned%20to%20these%20code%20points
+                             *  
+                             * 
+                             */
+                            //  Please see bug report comment thread on github for more detailed information on codepages at https://github.com/CTI-Tim/Masters2021-MCP-101/issues/1
 
-                            //  Note that codepages are a complex topic and the student is encouraged to explore them further,  they are not C# specific but computer data standards
-                            //  for string data encoding.
-
-                            //byte[] payload = System.Text.Encoding.UTF8.GetBytes(temp); // Convert the string to Byte array using UTF8...  Note this fails after chr127 because it uses codepage 0
-
-                            byte[] payload = System.Text.Encoding.GetEncoding(1252).GetBytes(temp);  // Unicode just happens to preserve all 256 bytes  use this ALWAYS for device communication
+                            byte[] payload = System.Text.Encoding.GetEncoding(1252).GetBytes(temp);  // This is the encoding and this will NOT WORK as there is a hole in the middle of that codepage
 
                             myClient.SendData(payload, payload.Length);                  // Send it out to the TCP connection that wants an array of bytes.
                         }
@@ -164,8 +181,7 @@ namespace MastersHelperLibrary
 
                             //string Buffer = System.Text.Encoding.UTF8.GetString(myClient.IncomingDataBuffer); // we get bytes, time to make it a string,  Encoding may change bytes so this will not work for beyond 127
 
-                            string Buffer = System.Text.Encoding.GetEncoding(1252).GetString(myClient.IncomingDataBuffer);  // This is using the Unicode trick to get all 256 byte values
-                            
+                            string Buffer = System.Text.Encoding.GetEncoding(1252).GetString(myClient.IncomingDataBuffer);  // See the comment block above for details on codepage and what to pick
                             lastRX = Buffer.TrimEnd('\x00'); // make a copy in case the user wants to look at the last packet received, get rid of any trailing \x00's
                             OnRaiseEvent(new TCPClientHelperEventArgs("RX")); // Call the Event Handler
                         }
