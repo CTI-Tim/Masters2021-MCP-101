@@ -148,7 +148,7 @@ namespace MastersHelperLibrary
 
                             /* This comment block added after some great discussions about this learning point.
                              *
-                             *Codepages in C# can be a challenge.    In this code Codepage 1252 is used but is INCORRECT.    I used  it because if you search for help with
+                             *  Codepages in C# can be a challenge.    In this code Codepage 1252 is used but is INCORRECT.    I used  it because if you search for help with
                              *  sending bytes in a string you will come across this answer a LOT out on the internet,  and it's the wrong answer because it has a hole in the middle that will not return
                              *  the correct information.   I am hesitant to just hand you the student the answer because the journey into understanding it is very important and is not covered
                              *  well in all C# training available.    Most programmers in C# will not use a string for data to and from a device or service because of the encoding,
